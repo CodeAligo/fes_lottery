@@ -2,8 +2,8 @@ package main
 
 import (
 	//"github.com/jasonlvhit/gocron"
-	"github.com/jinzhu/gorm"
-	_ "github.com/lib/pq"
+	//"github.com/jinzhu/gorm"
+	//_ "github.com/lib/pq"
 	"html/template"
 	"log"
 	//"math/rand"
@@ -13,11 +13,12 @@ import (
 )
 
 var (
-	Port   string
-	Db     *gorm.DB
+	Port string
+	//Db     *gorm.DB
 	result Result
 )
 
+/*
 func init() {
 	Db, err := gorm.Open("postgres", "user=golang dbname=fes_lottery password=ilovegolang sslmode=disable")
 	if err != nil {
@@ -28,7 +29,6 @@ func init() {
 
 }
 
-/*
 func picker() {
 	result.Number = []int{}
 	rand.Seed(time.Now().UnixNano())
