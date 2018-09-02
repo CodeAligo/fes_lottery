@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+    <h1>결과는</h1>
+    {{ if .Number }}
+    <h2>
+        {{ range .Number }}
+            {{ . }}
+        {{ end }}
+    </h2>
+    <h1>당첨자  {{ .Winners }}명</h1>
+{{ else }}
+    <h1>10시에 공개됩니다!</h1>
+{{ end }}
+</body>
+</html>
