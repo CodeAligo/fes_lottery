@@ -10,13 +10,20 @@
       html{
           text-align: center;
           font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
-          
+          background-color: powderblue;
+          margin: 100px;}
+
+      #effect:hover{
+        transform: scale(2);
+
+      }
+
     </style>
 </head>
 <body>
     <h1>결과는</h1>
     {{ if .Number }}
-    <h2>
+    <h2 id='effect'>
         {{ range .Number }}
             {{ . }}
         {{ end }}
