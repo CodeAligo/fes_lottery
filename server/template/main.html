@@ -13,10 +13,19 @@
           font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
           background-color: powderblue;
           margin: 100px;}
+      h2{
+        font-size: 10rem;
+      }
 
+      .a{
+        margin: 50px;
+      }
       #effect:hover{
-        transform: scale(2);
+        transform: scale(1.5);
+      }
 
+      h1{
+        font-size: 5rem;
       }
 
     </style>
@@ -26,7 +35,7 @@
     {{ if .Number }}
     <h2 id='effect'>
         {{ range .Number }}
-            {{ . }}
+            <b class = 'a'>{{ . }}</b>
         {{ end }}
     </h2>
     <h1>당첨자  {{ .Winners }}명</h1>
