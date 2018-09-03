@@ -63,8 +63,9 @@ func main() {
 	Port = ":" + os.Args[1]
 	log.Println("Staring Server... Port", Port)
 
+	static := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", static))
 	http.HandleFunc("/", index)
-	http.FileServer(http.Dir("./static"))
 	http.ListenAndServe(Port, nil)
 
 }
