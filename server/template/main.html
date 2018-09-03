@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+    <meta charset="UTF-8">
+    <title></title>
+    <style media="screen">
+    @import
+    url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+      html{
+          text-align: center;
+          font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
+          
+    </style>
+</head>
+<body>
+    <h1>결과는</h1>
+    {{ if .Number }}
+    <h2>
+        {{ range .Number }}
+            {{ . }}
+        {{ end }}
+    </h2>
+    <h1>당첨자  {{ .Winners }}명</h1>
+{{ else }}
+    <h1>10시에 공개됩니다!</h1>
+{{ end }}
+</body>
+</html>
