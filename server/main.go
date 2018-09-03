@@ -43,6 +43,13 @@ func picker() {
 */
 
 func index(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path[1:] == "a" {
+		result.Number = []int{24, 9, 8, 7}
+		result.Winners = 25
+	} else {
+		result.Number = []int{}
+		result.Winners = 0
+	}
 
 	log.Println("index Func")
 	t := template.Must(template.ParseFiles("template/main.tmpl"))
