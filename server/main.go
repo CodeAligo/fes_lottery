@@ -52,7 +52,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Println("index Func")
-	t := template.Must(template.ParseFiles("template/main.tmpl"))
+	t := template.Must(template.ParseFiles("template/main.html"))
 	t.Execute(w, result)
 }
 
