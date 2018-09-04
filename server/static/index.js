@@ -1,22 +1,30 @@
-var SetTime = prompt("원하는 시간을 적어주세요(분 씩으로)","10");
+var SetTime = prompt("몇분 타이머? (기본: 10분)","10");
 SetTime = SetTime * 60
 
 function msg_time() {
-	n = Math.floor(SetTime/60)
-	if (n < 10) {
-		n = "0" + String(n)
+    hour = 0
+	min = Math.floor(SetTime/60)
+    while (min >= 60) {
+        min -= 60
+        hour++
+    }
+
+    if (hour < 10) {
+        hour = "0" + String(hour)
+    }
+        
+	if (min < 10) {
+		min = "0" + String(min)
 	}
 
-	y = SetTime % 60
-	if (y < 10) {
-		y = "0"+String(y)
+	sec = SetTime % 60
+	if (sec < 10) {
+		sec = "0"+String(sec)
 	}
-	m = "00:"+ n + ":" + y;
-
-	var msg = m ;
+	remainedTime = hour + ":"+ min + ":" + sec;
 
 
-	document.all.ViewTimer.innerHTML = msg;
+	document.all.ViewTimer.innerHTML = remainedTime;
 
 	SetTime--;
 

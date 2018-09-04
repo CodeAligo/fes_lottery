@@ -1,57 +1,32 @@
 package main
 
 import (
-	//"github.com/jasonlvhit/gocron"
-	//"github.com/jinzhu/gorm"
-	//_ "github.com/lib/pq"
 	"html/template"
 	"log"
-	//"math/rand"
 	"net/http"
 	"os"
-	//"time"
 )
 
+type Result struct {
+	Number  []int
+	Winners int
+}
+
 var (
-	Port string
-	//Db     *gorm.DB
+	Port   string
 	result Result
 )
 
-/*
-func init() {
-	Db, err := gorm.Open("postgres", "user=golang dbname=fes_lottery password=ilovegolang sslmode=disable")
-	if err != nil {
-		panic(err)
-	}
-
-	Db.AutoMigrate(&Student{}, &Ticket{})
-
-}
-
-func picker() {
-	result.Number = []int{}
-	rand.Seed(time.Now().UnixNano())
-	r := rand.Perm(25)
-
-	n := 0
-	for n < 4 {
-		result.Number = append(result.Number, r[n]+1)
-		n++
-	}
-}
-*/
-
 func index(w http.ResponseWriter, r *http.Request) {
+	result.Number = []int{}
+	result.Winners = 0
+
 	if r.URL.Path[1:] == "a" {
 		result.Number = []int{24, 9, 8, 7}
 		result.Winners = 25
-	} else {
-		result.Number = []int{}
-		result.Winners = 0
 	}
 
-	log.Println("index Func")
+	log.Println("Request:", r.URL.Path, "| From", r.RemoteAddr)
 	t := template.Must(template.ParseFiles("template/main.html"))
 	t.Execute(w, result)
 }
