@@ -27,7 +27,7 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
       }
   }
 
-  #effect < .a {
+  .a {
     animation-duration: 1s;
     animation-name: rotation;
     animation-iteration-count: infinite;
