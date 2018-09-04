@@ -4,34 +4,52 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
       text-align: center;
       font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
       background-color: powderblue;
-      margin: 25px;}
+      margin: 100px;}
 
   @keyframes changesize {
     from {
       font-size: 10rem;
     }
     to {
-      font-size: 15rem;
+      font-size: 14rem;
     }
   }
 
+  @keyframes rotation {
+      from {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+      }
+
+      to {
+        transform:rotate(45deg);
+        -webkit-transform:rotate(45deg);
+      }
+  }
+
+  #effect < .a {
+    animation-duration: 1s;
+    animation-name: rotation;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+
   h2{
     font-size: 10rem;
+    margin-bottom: auto;
   }
 
-  .a{
+  b{
     margin: 50px;
-    animation-duration: 1s;
-    animation-name: identifier;
-    animation-iteration-count: infinite;
 
   }
-
 
 
   h1{
     font-size: 5rem;
     margin-top:1px;
+
   }
   #ViewTimer{
     animation-duration: 1s;
