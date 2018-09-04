@@ -1,5 +1,9 @@
-var SetTime = prompt("몇분 타이머? (기본: 10분)","10");
-SetTime = SetTime * 60
+var nextTime = prompt("목표 시간은?","10");
+target = new Date()
+target.setHours(nextTime, 0, 0, 0)
+now = new Date()
+SetTime = target - now
+SetTime = Math.floor(SetTime / 1000)
 
 function msg_time() {
     hour = 0
