@@ -2,8 +2,9 @@
 url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
   html{
       text-align: center;
+      color: white;
       font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background-color: powderblue;
+      background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4sYNu9NjtY_Dm-NR5cxjBc-38G-lxggf5NwK8H5JdLkFFNpXcPQ);
       margin: 100px;}
 
   @keyframes changesize {
