@@ -1,4 +1,4 @@
-var SetTime = 900;		
+var SetTime = prompt("원하는 시간을 적어주세요(분 씩으로)","600");
 
 function msg_time() {	
 	
