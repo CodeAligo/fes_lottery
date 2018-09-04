@@ -28,6 +28,13 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
   }
 
   .a {
+    font-size: 8rem;
+    margin:50px;
+    margin-bottom: 100px;
+    border-style: inset;
+    border-color: inherit;
+    background-color: blue;
+    display: inline-block;
     animation-duration: 1s;
     animation-name: rotation;
     animation-iteration-count: infinite;
@@ -37,7 +44,7 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
   h2{
     font-size: 10rem;
-    margin-bottom: auto;
+
   }
 
   b{
