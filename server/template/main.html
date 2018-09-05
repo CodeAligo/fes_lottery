@@ -13,16 +13,29 @@
           font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
           background-color: powderblue;
           margin: 25px;}
-      h2{
-        font-size: 10rem;
-      }
+
 
       .a{
         margin: 50px;
       }
-      #effect:hover{
-        transform: scale(1.5);
+      @keyframes changesize {
+        from {
+          font-size: 10rem;
+        }
+        to {
+          font-size:15rem;
+        }
       }
+
+
+      }
+      h2{
+        animation-duration: 2s;
+        animation-name: changesize;
+        animation-iteration-count infinite;
+        animation-direction: alternate;
+      }
+
 
       h1{
         font-size: 5rem;
