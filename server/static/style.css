@@ -1,3 +1,67 @@
-html{
-    text-align: center;
-}
+@import
+url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+  html{
+      text-align: center;
+      color: white;
+      font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4sYNu9NjtY_Dm-NR5cxjBc-38G-lxggf5NwK8H5JdLkFFNpXcPQ);
+      margin: 100px;}
+
+  @keyframes changesize {
+    from {
+      font-size: 10rem;
+    }
+    to {
+      font-size: 14rem;
+    }
+  }
+
+  @keyframes rotation {
+      from {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+      }
+
+      to {
+        transform:rotate(45deg);
+        -webkit-transform:rotate(45deg);
+      }
+  }
+
+  .a {
+    font-size: 8rem;
+    margin:50px;
+    margin-bottom: 100px;
+    border-style: inset;
+    border-color: inherit;
+    background-color: blue;
+    display: inline-block;
+    animation-duration: 1s;
+    animation-name: rotation;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+
+  h2{
+    font-size: 10rem;
+
+  }
+
+  b{
+    margin: 50px;
+
+  }
+
+
+  h1{
+    font-size: 5rem;
+    margin-top:1px;
+
+  }
+  #ViewTimer{
+    animation-duration: 1s;
+    animation-name: changesize;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }

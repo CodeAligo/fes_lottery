@@ -1,58 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
     <meta charset="UTF-8">
-    <title></title>
-        <script src="static/index.js" lang="JavaSciprt"></script>
-    <style media="screen">
-    @import
-    url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-      html{
-          text-align: center;
-          font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
-          background-color: powderblue;
-          margin: 25px;}
-
-
-      .a{
-        margin: 50px;
-      }
-      @keyframes changesize {
-        from {
-          font-size: 10rem;
-        }
-        to {
-          font-size:15rem;
-        }
-      }
-
-
-      }
-      h2{
-        animation-duration: 2s;
-        animation-name: changesize;
-        animation-iteration-count infinite;
-        animation-direction: alternate;
-      }
-
-
-      h1{
-        font-size: 5rem;
-        margin-top:1px;
-      }
-      #ViewTimer{
-        font-size: 3rem;
-      }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <title>page</title>
+    <script src="static/index.js" lang="JavaSciprt"></script>
 </head>
 <body>
     <h1>결과는</h1>
     {{ if .Number }}
     <h2 id='effect'>
         {{ range .Number }}
-            <b class = 'a'>{{ . }}</b>
+            <h1 class = "a">{{ . }}</h1>
         {{ end }}
     </h2>
     <h1>당첨자  {{ .Winners }}명</h1>
