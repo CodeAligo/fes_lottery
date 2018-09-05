@@ -5,7 +5,8 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
       color: lightgray;
       font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
       background-image: url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c10.jpg);*/
-      margin: 100px;}
+      margin: 100px;
+  }
 
   @keyframes changesize {
     from {
@@ -40,30 +41,30 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     animation-name: rotation;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-
-
   }
 
 
   h2{
     font-size: 10rem;
-
   }
 
   b{
     margin: 50px;
-
   }
 
 
   h1{
     font-size: 5rem;
     margin-top:1px;
-
   }
+
   #ViewTimer{
     animation-duration: 1s;
     animation-name: changesize;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+  }
+
+  #NextTime {
+      visibility: hidden;
   }

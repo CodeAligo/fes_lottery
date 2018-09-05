@@ -1,10 +1,3 @@
-var nextTime = prompt("목표 시간은?","10");
-target = new Date()
-target.setHours(nextTime, 0, 0, 0)
-now = new Date()
-SetTime = target - now
-SetTime = Math.floor(SetTime / 1000)
-
 function msg_time() {
     hour = 0
 	min = Math.floor(SetTime/60)
@@ -14,31 +7,42 @@ function msg_time() {
     }
 
     if (hour < 10) {
-        hour = "0" + String(hour)
+        hour = "0" + hour
     }
         
 	if (min < 10) {
-		min = "0" + String(min)
+		min = "0" + min
 	}
 
 	sec = SetTime % 60
 	if (sec < 10) {
-		sec = "0"+String(sec)
+		sec = "0" + sec
 	}
-	remainedTime = hour + ":"+ min + ":" + sec;
+	remainedTime = hour + ":" + min + ":" + sec;
 
 
 	document.all.ViewTimer.innerHTML = remainedTime;
 
 	SetTime--;
 
-	if (SetTime < 0) {
 
+	if (SetTime <= 0) {
 		clearInterval(tid);
-		alert("종료");
-
+        window.location.href = "result"
+        return
 	}
+
+    if (SetTime == 300) {
+        document.all.Msg.innerHTML = "⚠️ 이번 회차 구매가 마감되었습니다."
+    }
 
 }
 
-window.onload = function TimerStart(){ tid=setInterval('msg_time()',1000) };
+function start_timer() {
+    target = new Date()
+    target.setHours(nextTime, 0, 0, 0)
+    now = new Date()
+    SetTime = target - now
+    SetTime = Math.floor(SetTime / 1000)
+    window.onload = function TimerStart(){ tid=setInterval('msg_time()',1000) };
+}

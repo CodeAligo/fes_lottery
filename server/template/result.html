@@ -3,10 +3,16 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="static/style.css">
-    <title>page</title>
-    <script src="static/index.js" lang="JavaSciprt"></script>
+    <title>result.html</title>
+    <script src="static/index.js" type="text/javascript"></script>
   </head>
   <body>
-
+        <h1>당첨 번호는</h1>
+        <h2 id="effect">
+            {{ range .Numbers }}
+            <h1 class="a">{{ . }}</h1>
+            {{ end }}
+        </h2>
+        <h1>남은 당첨자 {{ .NumWinners }}명</h1>
   </body>
 </html>
