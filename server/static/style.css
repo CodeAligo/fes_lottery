@@ -2,9 +2,9 @@
 url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
   html{
       text-align: center;
-      color: white;
+      color: lightgray;
       font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4sYNu9NjtY_Dm-NR5cxjBc-38G-lxggf5NwK8H5JdLkFFNpXcPQ);
+      background-image: url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c10.jpg);*/
       margin: 100px;}
 
   @keyframes changesize {
@@ -32,14 +32,16 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     font-size: 8rem;
     margin:50px;
     margin-bottom: 100px;
-    border-style: inset;
+    /*border-style: inset;
     border-color: inherit;
-    background-color: blue;
+    background-color: black;*/
     display: inline-block;
     animation-duration: 1s;
     animation-name: rotation;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+
+
   }
 
 
