@@ -26,7 +26,8 @@ var (
 )
 
 func logger(r *http.Request) {
-	log.Println("Request:", r.URL.Path, "| From", r.RemoteAddr, "\nNextTime =", timer.NextTime, "NumWinners = ", result.NumWinners, "\n")
+	log.Print("Request: ", r.URL.Path, " | From ", r.RemoteAddr, "\nNextTime = ", timer.NextTime, " NumWinners = ", result.NumWinners, "\n")
+	log.Print("Numbers = ", result.Numbers, "\n\n")
 }
 
 func resultHandler(w http.ResponseWriter, r *http.Request) {
@@ -43,22 +44,45 @@ func timerHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func sendHandler(w http.ResponseWriter, r *http.Request) {
-	/*
+	var err error
+	logger(r)
+
+	if r.FormValue("number1") != "" {
 		numbers := []string{}
+
 		for n := 1; n <= 4; n++ {
-			key := fmt.Sprint("number%d", n)
+			key := fmt.Sprintf("number%d", n)
 			numbers = append(numbers, r.FormValue(key))
 			fmt.Println(r.FormValue(key))
 		}
 
 		copy(result.Numbers, numbers)
-	*/
+	}
 
-	fmt.Println(r.FormValue("number1"))
+	if numWinners := r.FormValue("NumWinners"); numWinners != "" {
+		result.NumWinners, err = strconv.Atoi(numWinners)
+
+		if err != nil {
+			log.Println("Error: NumWinners cannot be int")
+		}
+	}
+
+	if nextTime := r.FormValue("NextTime"); nextTime != "" {
+		timer.NextTime, err = strconv.Atoi(nextTime)
+
+		if err != nil {
+			log.Println("Error: NextTime cannot be int")
+		}
+	}
 
 	w.WriteHeader(200)
 	return
 
+}
+
+func ajaxHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, result.NumWinners)
+	return
 }
 
 func main() {
@@ -82,9 +106,11 @@ func main() {
 
 	static := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", static))
+	http.HandleFunc("/ajax", ajaxHandler)
 	http.HandleFunc("/result", resultHandler)
 	http.HandleFunc("/timer", timerHandler)
 	http.HandleFunc("/send", sendHandler)
+
 	http.ListenAndServe(Port, nil)
 
 }
