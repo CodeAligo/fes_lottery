@@ -43,15 +43,18 @@ func timerHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func sendHandler(w http.ResponseWriter, r *http.Request) {
-	numbers := []string{}
+	/*
+		numbers := []string{}
+		for n := 1; n <= 4; n++ {
+			key := fmt.Sprint("number%d", n)
+			numbers = append(numbers, r.FormValue(key))
+			fmt.Println(r.FormValue(key))
+		}
 
-	query := r.URL.Query()
-	for n := 1; n <= 4; n++ {
-		key := fmt.Sprint("number%d", n)
-		numbers = append(numbers, string(query[key][0]))
-	}
+		copy(result.Numbers, numbers)
+	*/
 
-	result.Numbers = numbers
+	fmt.Println(r.FormValue("number1"))
 
 	w.WriteHeader(200)
 	return
