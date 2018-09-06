@@ -2,9 +2,10 @@
 url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
   html{
       text-align: center;
-      color: lightgray;
+      color: white;
       font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background-image: url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c10.jpg);
+      /*background-image: url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c10.jpg);*/
+      background-image: url(https://kr.best-wallpaper.net/wallpaper/1920x1080/1807/Bitcoin-currency-money-computer-board_1920x1080.jpg);
       margin: 100px;
   }
 
@@ -29,8 +30,19 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
       }
   }
 
-  #effect {
-    position: relative;
+  #b {
+    font-size: 10rem;
+    display: inline-block;
+    margin-left: 75px;
+    margin-right: 75px;
+    animation-name: rotation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  #A {
+    margin:0px;
   }
 
   h1 {

@@ -6,12 +6,12 @@
     <title>result.html</title>
     <script src="static/index.js" type="text/javascript"></script>
   </head>
-  <body>
+  <body id = "A">
         <h1>당첨 번호는</h1>
         <h2 id="effect">
-            {{ range .Numbers }}
-            <h1 class="a">{{ . }}</h1>
-            {{ end }}
+          {{ range .Numbers }}
+          <h1 id ="b">{{.}}</h1>
+          {{ end }}
         </h2>
         <h1>남은 당첨자 {{ .NumWinners }}명</h1>
   </body>
