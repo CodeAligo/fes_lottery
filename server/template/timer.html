@@ -8,9 +8,9 @@
   </head>
   <body>
       <h1>왕운 게이밍 - 복권</h1>
-      <h3 id="Msg">{{ if .Msg }}{{ .Msg }}{{ end }}</h3>
+      <h3 id = "Msg">{{ if .Msg }}{{ .Msg }}{{ end }}</h3>
       <div id="ViewTimer"></div>
-      <h1>{{ .NextTime }}시에 공개됩니다!</h1>
+      <h1 id = "A">{{ .NextTime }}시에 공개됩니다!</h1>
       <p id="NextTime">{{ .NextTime }}</p>
     <script type="text/javascript">
 var nextTime = document.getElementById("NextTime").innerHTML
