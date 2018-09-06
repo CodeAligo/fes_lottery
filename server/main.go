@@ -26,7 +26,8 @@ var (
 )
 
 func logger(r *http.Request) {
-	log.Print("Request: ", r.URL.Path, " | From", r.RemoteAddr, "\nNextTime = ", timer.NextTime, "NumWinners = ", result.NumWinners, "\n\n")
+	log.Print("Request: ", r.URL.Path, " | From ", r.RemoteAddr, "\nNextTime = ", timer.NextTime, " NumWinners = ", result.NumWinners, "\n")
+	log.Print("Numbers = ", result.Numbers, "\n\n")
 }
 
 func resultHandler(w http.ResponseWriter, r *http.Request) {
