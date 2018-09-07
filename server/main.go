@@ -29,7 +29,8 @@ var (
 
 // logger 함수는 요청이 들어올 시 요청에 따른 로그를 출력합니다.
 func logger(r *http.Request) {
-	log.Print("Request: ", r.URL.Path, " | From ", r.RemoteAddr, "\nNextTime = ", timer.NextTime, " NumWinners = ", result.NumWinners, "\n",
+	log.Print("Request: ", r.URL.Path, " | From ", r.RemoteAddr,
+		"\nNextTime = ", timer.NextTime, " NumWinners = ", result.NumWinners, "\n",
 		"Numbers = ", result.Numbers, "\n\n")
 }
 
