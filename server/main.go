@@ -26,8 +26,8 @@ var (
 )
 
 func logger(r *http.Request) {
-	log.Print("Request: ", r.URL.Path, " | From ", r.RemoteAddr, "\nNextTime = ", timer.NextTime, " NumWinners = ", result.NumWinners, "\n")
-	log.Print("Numbers = ", result.Numbers, "\n\n")
+	log.Print("Request: ", r.URL.Path, " | From ", r.RemoteAddr, "\nNextTime = ", timer.NextTime, " NumWinners = ", result.NumWinners, "\n",
+		"Numbers = ", result.Numbers, "\n\n")
 }
 
 func resultHandler(w http.ResponseWriter, r *http.Request) {
@@ -53,7 +53,6 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 		for n := 1; n <= 4; n++ {
 			key := fmt.Sprintf("number%d", n)
 			numbers = append(numbers, r.FormValue(key))
-			fmt.Println(r.FormValue(key))
 		}
 
 		copy(result.Numbers, numbers)
@@ -81,6 +80,7 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func ajaxHandler(w http.ResponseWriter, r *http.Request) {
+	logger(r)
 	fmt.Fprint(w, result.NumWinners)
 	return
 }
@@ -99,7 +99,7 @@ func main() {
 		fmt.Println("nexttime is not int")
 		return
 	}
-	log.Println("Staring Server... Port", Port, "\n")
+	log.Print("Staring Server... Port", Port, "\n\n")
 
 	result.Numbers = []string{"24", "09", "08", "07"}
 	result.NumWinners = 25

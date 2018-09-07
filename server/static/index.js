@@ -46,3 +46,20 @@ function start_timer() {
     SetTime = Math.floor(SetTime / 1000)
     window.onload = function TimerStart(){ tid=setInterval('msg_time()',1000) };
 }
+
+
+function load_NumWinners() {
+	$.ajax({
+        type:"GET",
+        url:"/ajax",
+        dataType:"text",
+			
+        success: function(data) {
+            document.all.NumWinners.innerHTML = "남은 수령자 " + data + "명"
+            if (data == 0) {
+                clearInterval(loader)
+                window.location.href = "timer"
+            }
+        }
+		})
+}

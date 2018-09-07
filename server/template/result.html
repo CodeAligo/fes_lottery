@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="static/style.css">
     <title>result.html</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="static/index.js" type="text/javascript"></script>
+    <script type="text/javascript">var loader = setInterval(load_NumWinners, 5000)</script>
   </head>
   <body id = "C">
         <h1>당첨 번호는</h1>
@@ -13,6 +15,7 @@
           <h1 id ="b">{{.}}</h1>
           {{ end }}
         </h2>
-        <h1>남은 당첨자 {{ .NumWinners }}명</h1>
+        <h1 id="NumWinners">남은 당첨자 {{ .NumWinners }}명</h1>
+
   </body>
 </html>
