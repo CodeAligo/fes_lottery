@@ -7,80 +7,81 @@
 
 using namespace std;
 
-char pass[10];
+char in_pw[10];		// 신청 및 수령시 직원 체크 페스워드 
 
 struct data{
-	int stu, lot[5];
-	char pass[25];
+	int num, lot[5];
+	char pw[25];
 };
 
-int in_pass();
+data stu[31000];	// 구조체, 학생 
+
+int input_pw();		// 패스워드 입력 
+int check_pw();		// 패스워드 확인 
+int input_file();
 
 int main()
 {
-	data stu[31000];
-	int i, j, con, t;
-	char in[100];
-	FILE *fp = fopen("student.txt", "r");
-	
-	if(fp == NULL) {
-		fprintf(stdout, "파일을 열지 못했습니다.");
-		getch();
-		exit(1);
-	}
-	
-	for(i=1; i<=31000; i++)
-	{
-		fscanf(fp, "%[^\n]s", in);
-		con=t=0;
-		for(j=0; j<strlen(in); j++)
-		{
-			if(in[j+1] == ' '){
-				switch(con)
-				{
-					case 0:
-						stu[i].stu = t;
-						break;
-					case 3:
-						stu[i].lot[con-3] = t;
-				}
-			}
-		}
-	}
 
-	fclose(fp);
+	input_file();
 	
-	system("cls");
 	while(1)
 	{
-		printf(">> ");
-		in_pass();
-		if(strcmp(pass, "code") == 0) {
-			printf("%s", pass);		// 후에 변경 필요 
-			break;
-		}
-		if(strcmp(pass, "end") == 0){
-			printf("%s", pass);		// 후에 변경 필요
-			break;
-		}
-		system("cls");
-		printf("비밀번호가 옳지 않습니다.\n");
+		switch(check_pw())
+			case 
 	}
-
+	
+	check_pw() == 1 ? printf("code\n") : printf("end");
+	
+	printf("%d %s %d %d %d %d\n", stu[1].num, stu[1].pw, stu[1].lot[0], stu[1].lot[1], stu[1].lot[2], stu[1].lot[3]);
+	
 	return 0;
 }
 
-int in_pass()
+int input_pw()
 {
-	int a, i;
-	for(i=0; i<10; i++) pass[i] = NULL;
+	int a, i;		//	a : keycode input
+	for(i=0; i<10; i++) in_pw[i] = NULL;
+	
 	i=0;
 	while(1)
 	{
 		a=getch();
 		if(a==13) break;
 		printf(" *");
-		pass[i++]=a;
+		in_pw[i++]=a;
 	}
+	
+	return 0;
+}
+
+int check_pw()
+{
+	system("cls");
+	while(1)
+	{
+		printf(">> ");
+		input_pw();
+		if(strcmp(in_pw, "code") == 0) return 1;
+		if(strcmp(in_pw, "end") == 0) return 2;
+		system("cls");
+		printf("비밀번호가 옳지 않습니다.\n");
+	}
+	
+	return 0;
+}
+
+int input_file()
+{
+	int i, j;
+	
+	freopen("student.txt", "r", stdin);
+	
+	for(i=1; i<=31000; i++)
+	{
+		scanf("%d %s %d %d %d %d", &stu[i].num, stu[i].pw, &stu[i].lot[0], &stu[i].lot[1], &stu[i].lot[2], &stu[i].lot[3]);
+	}
+	fclose(stdin);
+	
 	return 0;
 }
