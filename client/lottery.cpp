@@ -45,19 +45,19 @@ int input_pw()
 {
 	int a, i, j;		//	a : keycode input
 	for(i=0; i<10; i++) in_pw[i] = NULL;
-	
 	i=0;
+	
+	printf(">> ");
 	while(1)
 	{
 		a=getch();
 		if(a == 13) break;
-		if(a == 8) {
-			system("cls");
-			in_pw[i--] = NULL;
-			for(j=1; j<=i; j++) printf("* ");
-		}
-		printf("* ");
-		in_pw[i++]=a;
+		if(a == 8) in_pw[i--] = NULL;
+		else in_pw[i++]=a;
+		if(i < 0) i=0;
+		system("cls");
+		printf(">> ");
+		for(j=1; j<=i; j++) printf("* ");
 	}
 	
 	return 0;
@@ -68,7 +68,6 @@ int check_pw()
 	system("cls");
 	while(1)
 	{
-		printf(">> ");
 		input_pw();
 		if(strcmp(in_pw, "code") == 0) return 1;
 		if(strcmp(in_pw, "end") == 0) return 2;
