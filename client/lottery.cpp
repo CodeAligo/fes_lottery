@@ -7,17 +7,17 @@
 
 using namespace std;
 
-char in_pw[10];		// ì‹ ì²­ ë° ìˆ˜ë ¹ì‹œ ì§ì› ì²´í¬ í˜ìŠ¤ì›Œë“œ 
+char in_pw[10];		// ½ÅÃ» ¹× ¼ö·É½Ã Á÷¿ø Ã¼Å© Æä½º¿öµå 
 
 struct data{
-	int num, lot[5];
+	int num, lot_n=0, lot[5];
 	char pw[25];
 };
 
-data stu[31000];	// êµ¬ì¡°ì²´, í•™ìƒ 
+data stu[31000];	// ±¸Á¶Ã¼, ÇĞ»ı 
 
-int input_pw();		// íŒ¨ìŠ¤ì›Œë“œ ì…ë ¥ 
-int check_pw();		// íŒ¨ìŠ¤ì›Œë“œ í™•ì¸ 
+int input_pw();		// ÆĞ½º¿öµå ÀÔ·Â 
+int check_pw();		// ÆĞ½º¿öµå È®ÀÎ 
 int input_file();
 
 int main()
@@ -25,12 +25,15 @@ int main()
 
 	input_file();
 	
-	while(1)
+/*	while(1)
 	{
 		switch(check_pw())
-			case 
-	}
-	
+			case 1:
+				
+			default :
+				break;
+	}*/
+
 	check_pw() == 1 ? printf("code\n") : printf("end");
 	
 	printf("%d %s %d %d %d %d\n", stu[1].num, stu[1].pw, stu[1].lot[0], stu[1].lot[1], stu[1].lot[2], stu[1].lot[3]);
@@ -40,15 +43,20 @@ int main()
 
 int input_pw()
 {
-	int a, i;		//	a : keycode input
+	int a, i, j;		//	a : keycode input
 	for(i=0; i<10; i++) in_pw[i] = NULL;
 	
 	i=0;
 	while(1)
 	{
 		a=getch();
-		if(a==13) break;
-		printf(" *");
+		if(a == 13) break;
+		if(a == 8) {
+			system("cls");
+			in_pw[i--] = NULL;
+			for(j=1; j<=i; j++) printf("* ");
+		}
+		printf("* ");
 		in_pw[i++]=a;
 	}
 	
@@ -65,7 +73,7 @@ int check_pw()
 		if(strcmp(in_pw, "code") == 0) return 1;
 		if(strcmp(in_pw, "end") == 0) return 2;
 		system("cls");
-		printf("ë¹„ë°€ë²ˆí˜¸ê°€ ì˜³ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
+		printf("ºñ¹Ğ¹øÈ£°¡ ¿ÇÁö ¾Ê½À´Ï´Ù.\n");
 	}
 	
 	return 0;
@@ -79,7 +87,7 @@ int input_file()
 	
 	for(i=1; i<=31000; i++)
 	{
-		scanf("%d %s %d %d %d %d", &stu[i].num, stu[i].pw, &stu[i].lot[0], &stu[i].lot[1], &stu[i].lot[2], &stu[i].lot[3]);
+		scanf("%d %s %d", &stu[i].num, stu[i].pw, &stu[i].lot_n);
 	}
 	fclose(stdin);
 	
