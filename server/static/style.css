@@ -37,6 +37,7 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     0% {opacity:0;}
     100% {opacity:1;}
   }
+  /* 애니메이션 투명도 조절 */
 
   @keyframes Announcement1 {
     0% {
@@ -51,14 +52,13 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
       transform: none;
       opacity: 0;
     }
-
     100% {
       transform: none;
       opacity: 1;
     }
   }
+    /* 애니메이션이 숨겨져 있다가 마지막에 짠하고 나옴: animation-duration잘 지정해줘야함 */
 
-  /* 애니메이션 선언: 투명도 조절 */
 
   @keyframes tr {
     0% {
@@ -81,6 +81,7 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     }
 
   }
+  /*당첨번호를 하나씩 보여줌 */
 
 
   p {
@@ -94,7 +95,7 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     right: -5000px;
 
   }
-
+  /* 중앙에 정렬시키면 겹쳐보이므로 화면에 안보이는 오른쪽에 미뤄둠 */
   .effect {
     font-size: 7rem;
     /* 폰트 크기를 지정 */
@@ -124,7 +125,6 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     animation-duration: 13s;
     animation-delay: 0s;
     right: 500px;
-
   }
 
   #i {
