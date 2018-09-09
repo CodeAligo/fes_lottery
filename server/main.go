@@ -92,9 +92,16 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 
 // ajaxHandler 함수는 JS의 ajax가 /ajax로 요청을 보내는 것을 처리합니다.
 func ajaxHandler(w http.ResponseWriter, r *http.Request) {
-	logger(r)                        // 로그
+	//log.Print("ajax: NumWinners = ", result.NumWinners, " from ", r.RemoteAddr, "\n\n")
 	fmt.Fprint(w, result.NumWinners) // result.NumWinners만 응답
 	return
+}
+
+func redirectHandler(w http.ResponseWriter, r *http.Request) {
+	url := "http://" + r.Host + "/result"
+	log.Println("Redirecting:", r.URL.Path, "->", url)
+	http.Redirect(w, r, url, http.StatusMovedPermanently)
+
 }
 
 func main() {
@@ -111,7 +118,7 @@ func main() {
 		fmt.Println("nexttime is not int")
 		return // 프로그램 종료
 	}
-	log.Print("Staring Server... Port", Port, "\n\n") // Server 시작 로그
+	log.Print("Staring Server... Port ", Port, "\n\n") // Server 시작 로그
 
 	result.Numbers = []string{"24", "09", "08", "07"} // Default Value
 	result.NumWinners = 25                            // Default Value
@@ -122,6 +129,7 @@ func main() {
 	http.HandleFunc("/result", resultHandler)                     // /result -> resultHandler
 	http.HandleFunc("/timer", timerHandler)                       // /timer -> timerHandler
 	http.HandleFunc("/send", sendHandler)                         // /send -> sendHander
+	http.HandleFunc("/", redirectHandler)
 
 	http.ListenAndServe(Port, nil) // localhost:Port로 서버 실행
 
