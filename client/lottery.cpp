@@ -7,24 +7,35 @@
 
 using namespace std;
 
-char in_pw[10];		// 신청 및 수령시 직원 체크 페스워드 
+char in_pw[10], staff[25];		// 신청 및 수령시 직원 체크 페스워드 
 
 struct data{
 	int check, lot[6][5];
-	char pw[25];
+	char pw[25], pw_t[25];	// password, password_temp
 };
 
 data stu[31000];	// 구조체, 학생 
 
-int input_pw();		// 패스워드 입력 
+int clr()
+{
+	system("cls");
+	printf("[staff : %s]\n\n", staff);
+}
+ 
+int input_pw(char k[]);		// 패스워드 입력 
 int check_pw();		// 패스워드 확인 
 int input_file();
-int add();
+int add_lot();
 int keynum();
+int add_pw(int stu_num);
 
 int main()
 {
-	int i, type, a;
+	int i, type;
+	
+	printf("staff\n>> ");
+	scanf("%s", staff);
+	clr();
 	
 	input_file();
 	
@@ -35,7 +46,7 @@ int main()
 		switch(type)
 		{
 			case 1:
-				add();
+				add_lot();
 				break;
 			default :
 				break;
@@ -46,17 +57,15 @@ int main()
 
 //	check_pw() == 1 ? printf("code\n") : printf("end");
 	
-	printf("%d %s ", stu[1].check, stu[1].pw);
-	for(i=1; i<=stu[1].check; i++) printf("%d %d %d %d", stu[1].lot[i][1], stu[1].lot[i][2], stu[1].lot[i][3], stu[1].lot[i][4]);
 	printf("\n");
 	
 	return 0;
 }
 
-int input_pw()
+int input_pw(char k[])
 {
 	int a, i, j;		//	a : keycode input
-	for(i=0; i<10; i++) in_pw[i] = NULL;
+	for(i=0; i<strlen(k); i++) k[i] = NULL;
 	i=0;
 	
 	printf("password >> ");
@@ -64,10 +73,10 @@ int input_pw()
 	{
 		a=getch();
 		if(a == 13) break;
-		if(a == 8) in_pw[i--] = NULL;
-		else in_pw[i++]=a;
-		if(i < 0) i=0;
-		system("cls");
+		if(a == 8) k[i--] = NULL;
+		else k[i++]=a;
+		if(i <= 0) i=0;
+		clr();
 		printf("password >> ");
 		for(j=1; j<=i; j++) printf("* ");
 	}
@@ -77,13 +86,15 @@ int input_pw()
 
 int check_pw()
 {
-	system("cls");
+	clr();
 	while(1)
 	{
 		printf("check\n");
-		input_pw();
+		input_pw(in_pw);
 		if(strcmp(in_pw, "add") == 0) return 1;
-		if(strcmp(in_pw, "end") == 0) return 2;
+		if(strcmp(in_pw, "signup") == 0) return 2;
+		if(strcmp(in_pw, "change") == 0) return 3;
+		if(strcmp(in_pw, "end") == 0) return 4;
 		system("cls");
 		printf("비밀번호가 옳지 않습니다.\n");
 	}
@@ -107,38 +118,53 @@ int input_file()
 	return 0;
 }
 
-int add()
+int add_lot()
 {
-	int gra, cla, num, a, stu_num, f=0;		// grade, class, number	
-r_a:
-	system("cls");							// 신원 입력 
-	if(f == 1) printf("재입력\n");
-	printf("학년 \n>> ");
-	gra=keynum();
-	printf("반 : \n>> ");
-	cla=keynum();
-	printf("번호 : \n>> ");
-	num=keynum();
-	
-	printf("%d반 %d반 %d번\n확인(Y/N)... ", gra, cla, num);
-	while(1)
-	{
-		a=getch();
-		if(a == 121) break;
-		else if(a == 110) {
-			f=1;
-			goto r_a;
+	int gra, cla, num, a, stu_num, f=0, i;		// grade, class, number	
+	do {
+		clr();							// 신원 입력 
+		if(f == 1) printf("재입력\n");
+		printf("학년 \n>> ");
+		gra=keynum();
+		printf("반 : \n>> ");
+		cla=keynum();
+		printf("번호 : \n>> ");
+		num=keynum();
+		
+		printf("%d반 %d반 %d번\n확인(Y/N)... ", gra, cla, num);
+		while(1)
+		{
+			a=getch();
+			if(a == 121) f=0;
+			else if(a == 110) f=1;
+			if(a == 121 || a == 110) break;
 		}
-	}
+		
+	} while(f == 1);
 	
-	system("cls");
+	clr();
 	
 	stu_num = gra*10000 + cla*100 + num;
 	printf("%d\n", stu_num);
 											// 비밀번호 입력
 	if(stu[stu_num].check == 0) {
-		
-	} 
+		printf("등록이 필요합니다.\n========================\n");
+		add_pw(stu_num);
+	}
+	
+	clr();
+	input_pw(stu[stu_num].pw_t);
+	clr();
+	
+	if(strcmp(stu[stu_num].pw, stu[stu_num].pw_t) == 0) {
+		a = ++stu[stu_num].check;
+		for(i=1; i<=4; i++)	{
+			printf("로또 : ");
+			stu[stu_num].lot[a][i] = keynum();
+		}
+		clr(); 
+		printf("%d학년 %d반 %d번 \n>>%3d %3d %3d %3d", gra, cla, num, stu[stu_num].lot[a][1], stu[stu_num].lot[a][2], stu[stu_num].lot[a][3], stu[stu_num].lot[a][4]);
+	}
 	
 	getch();
 	
@@ -156,9 +182,29 @@ int keynum()
 			n/=10;
 		}
 		if(48 <= a && a <= 57) n=n*10+(a-48);
-		system("cls");
+		clr();
 		printf(">> %d", n);
 	}
-	system("cls");
+	clr();
 	return n;
+}
+
+int add_pw(int stu_num)
+{
+	printf("\n비밀번호 설정\n");
+	while(1)
+	{
+		input_pw(stu[stu_num].pw_t);
+		printf("\n비밀번호 재확인...\n");
+		input_pw(stu[stu_num].pw);
+	
+		if(strcmp(stu[stu_num].pw, stu[stu_num].pw_t) == 0) {
+			printf("\n확인\n");
+			break;
+		}
+		clr();
+		if(strcmp(stu[stu_num].pw, stu[stu_num].pw_t) != 0) printf("\n일치하지 않음, 재설정...\n");
+	}
+	
+	return 0;
 }
