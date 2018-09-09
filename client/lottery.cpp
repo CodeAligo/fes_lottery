@@ -28,6 +28,7 @@ int input_file();
 int add_lot();
 int keynum();
 int add_pw(int stu_num);
+int student();
 
 int main()
 {
@@ -41,18 +42,24 @@ int main()
 	
 	while(1)
 	{
+		int stu_num, f=0;
 		type=check_pw();
+		stu_num = student();
+		printf("%d\n", stu_num);
 		
 		switch(type)
 		{
 			case 1:
-				add_lot();
+				add_lot(stu_num);
+				break;
+			case 2:
+				add_pw(stu_num);
 				break;
 			default :
+				f = 1;
 				break;
 		}
-		
-		break;
+		if(f == 1) break;
 	}
 
 //	check_pw() == 1 ? printf("code\n") : printf("end");
@@ -93,7 +100,6 @@ int check_pw()
 		input_pw(in_pw);
 		if(strcmp(in_pw, "add") == 0) return 1;
 		if(strcmp(in_pw, "signup") == 0) return 2;
-		if(strcmp(in_pw, "change") == 0) return 3;
 		if(strcmp(in_pw, "end") == 0) return 4;
 		system("cls");
 		printf("비밀번호가 옳지 않습니다.\n");
@@ -118,35 +124,10 @@ int input_file()
 	return 0;
 }
 
-int add_lot()
+int add_lot(int stu_num)
 {
-	int gra, cla, num, a, stu_num, f=0, i;		// grade, class, number	
-	do {
-		clr();							// 신원 입력 
-		if(f == 1) printf("재입력\n");
-		printf("학년 \n>> ");
-		gra=keynum();
-		printf("반 : \n>> ");
-		cla=keynum();
-		printf("번호 : \n>> ");
-		num=keynum();
-		
-		printf("%d반 %d반 %d번\n확인(Y/N)... ", gra, cla, num);
-		while(1)
-		{
-			a=getch();
-			if(a == 121) f=0;
-			else if(a == 110) f=1;
-			if(a == 121 || a == 110) break;
-		}
-		
-	} while(f == 1);
-	
-	clr();
-	
-	stu_num = gra*10000 + cla*100 + num;
-	printf("%d\n", stu_num);
-											// 비밀번호 입력
+	int i, a;
+	// 비밀번호 입력
 	if(stu[stu_num].check == 0) {
 		printf("등록이 필요합니다.\n========================\n");
 		add_pw(stu_num);
@@ -163,7 +144,7 @@ int add_lot()
 			stu[stu_num].lot[a][i] = keynum();
 		}
 		clr(); 
-		printf("%d학년 %d반 %d번 \n>>%3d %3d %3d %3d", gra, cla, num, stu[stu_num].lot[a][1], stu[stu_num].lot[a][2], stu[stu_num].lot[a][3], stu[stu_num].lot[a][4]);
+		printf("%d학년 %d반 %d번 \n>>%3d %3d %3d %3d", stu_num, cla, num, stu[stu_num].lot[a][1], stu[stu_num].lot[a][2], stu[stu_num].lot[a][3], stu[stu_num].lot[a][4]);
 	}
 	
 	getch();
@@ -207,4 +188,33 @@ int add_pw(int stu_num)
 	}
 	
 	return 0;
+}
+
+int student
+{
+	int gra, cla, num, a, f=0;		// grade, class, number	
+	do {
+		clr();							// 신원 입력 
+		if(f == 1) printf("재입력\n");
+		printf("학년 \n>> ");
+		gra=keynum();
+		printf("반 : \n>> ");
+		cla=keynum();
+		printf("번호 : \n>> ");
+		num=keynum();
+		
+		printf("%d반 %d반 %d번\n확인(Y/N)... ", gra, cla, num);
+		while(1)
+		{
+			a=getch();
+			if(a == 121) f=0;
+			else if(a == 110) f=1;
+			if(a == 121 || a == 110) break;
+		}
+		
+	} while(f == 1);
+	
+	clr();
+	
+	return gra*10000 + cla*100 + num;
 }
