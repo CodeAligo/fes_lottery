@@ -93,6 +93,7 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     margin-bottom: 30px;
     position: absolute;
     right: -5000px;
+    font-weight: bold;
 
   }
   /* 중앙에 정렬시키면 겹쳐보이므로 화면에 안보이는 오른쪽에 미뤄둠 */

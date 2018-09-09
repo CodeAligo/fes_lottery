@@ -10,8 +10,8 @@ using namespace std;
 char in_pw[10];		// 신청 및 수령시 직원 체크 페스워드 
 
 struct data{
-	int check, num_lot, lot[5];
-	char pw[25], lot_temp[15];
+	int check, lot[6][5];
+	char pw[25];
 };
 
 data stu[31000];	// 구조체, 학생 
@@ -31,6 +31,7 @@ int main()
 	while(1)
 	{
 		type=check_pw();
+		
 		switch(type)
 		{
 			case 1:
@@ -43,10 +44,10 @@ int main()
 		break;
 	}
 
-	check_pw() == 1 ? printf("code\n") : printf("end");
+//	check_pw() == 1 ? printf("code\n") : printf("end");
 	
-	printf("%d %s %d ", stu[1].check, stu[1].pw, stu[1].num_lot);
-	for(i=1; i<=stu[1].num_lot; i++) printf("%d ", stu[1].lot[i]);
+	printf("%d %s ", stu[1].check, stu[1].pw);
+	for(i=1; i<=stu[1].check; i++) printf("%d %d %d %d", stu[1].lot[i][1], stu[1].lot[i][2], stu[1].lot[i][3], stu[1].lot[i][4]);
 	printf("\n");
 	
 	return 0;
@@ -79,6 +80,7 @@ int check_pw()
 	system("cls");
 	while(1)
 	{
+		printf("check\n");
 		input_pw();
 		if(strcmp(in_pw, "add") == 0) return 1;
 		if(strcmp(in_pw, "end") == 0) return 2;
@@ -97,8 +99,8 @@ int input_file()
 	
 	for(i=1; i<=31000; i++)
 	{
-		scanf("%d %s %d", &stu[i].check, stu[i].pw, &stu[i].num_lot);
-		for(j=1; j<=stu[i].num_lot; j++) scanf("%s", stu[i].lot_temp);
+		scanf("%d %s", &stu[i].check, stu[i].pw);
+		for(j=1; j<=stu[i].check; j++) scanf("%d %d %d %d", &stu[i].lot[i][1], &stu[i].lot[i][2], &stu[i].lot[i][3], &stu[i].lot[i][4]);
 	}
 	
 	fclose(stdin);
@@ -107,9 +109,9 @@ int input_file()
 
 int add()
 {
-	int gra, cla, num, a, stu_num, f=0;		//grade, class, number	
+	int gra, cla, num, a, stu_num, f=0;		// grade, class, number	
 r_a:
-	system("cls");
+	system("cls");							// 신원 입력 
 	if(f == 1) printf("재입력\n");
 	printf("학년 \n>> ");
 	gra=keynum();
@@ -133,6 +135,11 @@ r_a:
 	
 	stu_num = gra*10000 + cla*100 + num;
 	printf("%d\n", stu_num);
+											// 비밀번호 입력
+	if(stu[stu_num].check == 0) {
+		
+	} 
+	
 	getch();
 	
 	return 0;
