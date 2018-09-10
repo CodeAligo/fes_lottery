@@ -98,7 +98,7 @@ func ajaxHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func redirectHandler(w http.ResponseWriter, r *http.Request) {
-	url := "http://" + r.Host + "/result"
+	url := "http://" + r.Host + "/timer"
 	log.Println("Redirecting:", r.URL.Path, "->", url)
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
 
