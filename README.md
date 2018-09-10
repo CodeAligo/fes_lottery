@@ -10,14 +10,13 @@ There will be no English.
 **fes_lottery**는 CodeAligo 동아리에서 학교 축제를 위해 진행하는 프로젝트로, 실재 재화가 아닌 축제에 사용하는 가상 화폐를 이용해 복권을 판매하고, 공개하는 프로그램이 들어있습니다.
 
 
-## 빌드 & 실행
+## 빌드 
 
 **Server(Go)**
 
 ```shell
 $ cd server
 $ go build
-$ ./server 8080 10
 ```
 
 **Client(C)**
@@ -31,11 +30,27 @@ $ ./server 8080 10
 
 Server는 실행 시 커맨드라인에서 받은 인자를 포트로 http 서버를 실행하고, http를 이용해 클라이언트로부터 정보를 받습니다.
 
+**실행**
 ```shell
-./server 8080 10
+$ ./server -h
+Usage of ./server:
+  -log string
+    	A file for logging (default "access.log")
+  -nt int
+    	NextTime (default 10)
+  -port string
+    	A port number for the Server (default "8080")
 ```
 
-실행 시 첫번째로 받는 인자는 포트로, 주로 8080으로 쓰입니다. 두번째 인자는 `NextTime`으로, `/timer` 접속 시 몇시까지 타이머를 구동할 지 설정합니다. `NextTime`의 초기 값을 정하는 것으로 실행 뒤 클라이언트로부터 값을 받을 수 있습니다. 단위는 24시간입니다.
+```shell
+$ ./server -port=8080 -nt=10
+```
+
+`-port`는 서버를 무슨 포트에 실행시킬지 결정합니다. 기본 값은 8080입니다.
+
+`-nt`는 타이머를 몇시까지 구동시킬지 결정하는 `NextTime`의 초기값입니다.
+
+`-log`는 서버 로그를 무슨 파일에 기록할 지 결정합니다. 기본 값은 `access.log`입니다.
 
 #### /timer
 
