@@ -15,3 +15,6 @@
 .DS_Store
 
 server/server
+
+# Default Server log file
+server/access.log

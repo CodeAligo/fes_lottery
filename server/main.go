@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"html/template"
 	"log"
@@ -22,7 +23,6 @@ type Timer struct {
 }
 
 var (
-	Port   string // Port 변수는 Command-Line 인자로 받은 숫자를 저장합니다.
 	result Result
 	timer  Timer
 )
@@ -30,8 +30,8 @@ var (
 // logger 함수는 요청이 들어올 시 요청에 따른 로그를 출력합니다.
 func logger(r *http.Request) {
 	log.Print("Request: ", r.URL.Path, " | From ", r.RemoteAddr,
-		"\nNextTime = ", timer.NextTime, " NumWinners = ", result.NumWinners, "\n",
-		"Numbers = ", result.Numbers, "\n\n")
+		"\nNextTime = ", timer.NextTime, ", NumWinners = ", result.NumWinners,
+		", Numbers = ", result.Numbers, "\n")
 }
 
 // resultHandler 함수는 /result의 요청을 처리합니다.
@@ -52,7 +52,6 @@ func timerHandler(w http.ResponseWriter, r *http.Request) {
 // sendHandler 함수는 /send로 들어온 인자를 저장합니다.
 func sendHandler(w http.ResponseWriter, r *http.Request) {
 	var err error // Error Handling을 위한 변수
-	logger(r)     // 로그
 
 	if r.FormValue("number1") != "" { // "number1" 필드가 있을 시
 		numbers := []string{} // 인자를 저장하기 위한 슬라이스
@@ -85,6 +84,8 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	logger(r) // 로그
+
 	w.WriteHeader(200) // http: OK
 	return
 
@@ -92,33 +93,43 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 
 // ajaxHandler 함수는 JS의 ajax가 /ajax로 요청을 보내는 것을 처리합니다.
 func ajaxHandler(w http.ResponseWriter, r *http.Request) {
-	//log.Print("ajax: NumWinners = ", result.NumWinners, " from ", r.RemoteAddr, "\n\n")
+	log.Print("ajax: NumWinners = ", result.NumWinners, " from ", r.RemoteAddr, "\n")
 	fmt.Fprint(w, result.NumWinners) // result.NumWinners만 응답
 	return
 }
 
 func redirectHandler(w http.ResponseWriter, r *http.Request) {
 	url := "http://" + r.Host + "/timer"
-	log.Println("Redirecting:", r.URL.Path, "->", url)
+	log.Println("Redirecting:", r.URL.Path, "-> /timer")
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
-
+	return
 }
 
 func main() {
-	if len(os.Args) < 3 { // Command-Line 인자가 충분하지 않을 때
-		fmt.Println("Usage: ./server port nexttime")
-		fmt.Println("Eg.    ./server 8080 10")
-		return // 프로그램 종료
-	}
-	Port = ":" + os.Args[1] // ":" + port
+	var (
+		logFile string
+		port    string
+	)
 
-	var err error                                  // ErrorHandling을 위한 변수
-	timer.NextTime, err = strconv.Atoi(os.Args[2]) // str -> int
-	if err != nil {                                // 변환 중 에러 발생 시
-		fmt.Println("nexttime is not int")
-		return // 프로그램 종료
+	// 커맨드라인 인자들
+	flag.StringVar(&logFile, "log", "access.log", "A file for logging")
+	flag.IntVar(&timer.NextTime, "nt", 10, "NextTime")
+	flag.StringVar(&port, "port", "8080", "A port number for the Server")
+
+	flag.Parse() // 인자 파싱
+
+	port = ":" + port // ":" + port
+
+	fpLog, err := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666) // 있으면 사용, 없으면 생성
+	if err != nil {
+		panic(err)
 	}
-	log.Print("Staring Server... Port ", Port, "\n\n") // Server 시작 로그
+	defer fpLog.Close()
+
+	log.Println("Server Log is in", logFile) // Server 시작 로그
+
+	log.SetOutput(fpLog)                               // 로그를 파일에 기록
+	log.Print("Staring Server... Port ", port, "\n\n") // Server 시작 로그
 
 	result.Numbers = []string{"24", "09", "08", "07"} // Default Value
 	result.NumWinners = 25                            // Default Value
@@ -129,8 +140,8 @@ func main() {
 	http.HandleFunc("/result", resultHandler)                     // /result -> resultHandler
 	http.HandleFunc("/timer", timerHandler)                       // /timer -> timerHandler
 	http.HandleFunc("/send", sendHandler)                         // /send -> sendHander
-	http.HandleFunc("/", redirectHandler)
+	http.HandleFunc("/", redirectHandler)                         // 편의상 / -> /timer
 
-	http.ListenAndServe(Port, nil) // localhost:Port로 서버 실행
+	http.ListenAndServe(port, nil) // localhost:Port로 서버 실행
 
 }
