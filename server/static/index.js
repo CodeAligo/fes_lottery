@@ -1,4 +1,5 @@
 function msg_time() {
+    SetTime = Math.floor(msec / 1000)
     hour = 0
     min = Math.floor(SetTime/60)
     while (min >= 60) {
@@ -23,7 +24,7 @@ function msg_time() {
 
 	document.all.ViewTimer.innerHTML = remainedTime;   // id = ViewTimer로 HTML 텍스트에 적용함
 
-	SetTime--;   // 시간 감소
+    msec -= 10
 
 
 	if (SetTime < 0) {
@@ -42,9 +43,8 @@ function start_timer() {
     target = new Date()
     target.setHours(nextTime, 0, 0, 0)
     now = new Date()
-    SetTime = target - now
-    SetTime = Math.floor(SetTime / 1000)
-    window.onload = function TimerStart(){ tid=setInterval('msg_time()',1000) };
+    msec = target - now
+    window.onload = function TimerStart(){ tid=setInterval('msg_time()',10) };
 }
 
 before = 0
@@ -64,3 +64,10 @@ function load_NumWinners() {
         }
     })
 }
+
+/*
+function refresh_timer() {
+    clearInterval(tid)
+    start_timer()
+}
+*/

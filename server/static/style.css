@@ -3,7 +3,7 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
   html{
       text-align: center;
       color: white;
-       font-family: "Noto Sans Korean", "Helvetica Neue", Helvetica, Arial, sans-serif;
+       font-family: "Noto Sans KR", "Helvetica Neue", Helvetica, Arial, sans-serif;
        /* 폰트를 지정합니다 */
       background-image: url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c10.jpg); //배경이미지를 지정합니다.
       /* 배경 이미지를 지정합니다. */
