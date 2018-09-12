@@ -53,11 +53,11 @@ function load_NumWinners() {
     $.ajax({ // 남은 수령자의 값을 Go 서버에 정보 요청
         type:"GET",
         url:"/ajax",
-        dataType:"text",
+        dataType:"json",
 
         success: function(data) {
-            document.all.NumWinners.innerHTML =  "남은 당첨자 " + data + "명"
-                if (data == 0) {
+            document.all.NumWinners.innerHTML =  "남은 당첨자 " + data.NumWinners + "명"
+                if (data.NumWinners == 0) {
                     clearInterval(loader)
                     window.location.href = "timer"
                 }
