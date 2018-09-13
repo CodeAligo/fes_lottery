@@ -13,8 +13,10 @@ import (
 
 // Data 구조체는 이번 회차의 결과를 저장합니다.
 type Data struct {
-	Numbers    []string `json:"Numbers"`    // Numbers 필드는 당첨 번호를 저장합니다.
-	NumWinners int      `json:"NumWinners"` // NumWinners 필드는 당첨자가 몇명인지를 저장합니다.
+	Numbers []string `json:"Numbers"` // Numbers 필드는 당첨 번호를 저장합니다.
+
+	NumWinners    int `json:"NumWinners"` // NumWinners 필드는 당첨자가 몇명인지를 저장합니다.
+	RemainWinners int `json:"RemainWinners"`
 
 	NextTime int    `json:"NextTime"` // NextTime 필드는 현재 시간부터 몇시까지 타이머를 구동할 건지를 저장합니다.
 	Msg      string `json:"Msg"`      // Msg 필드는 안내 문구를 저장합니다. 필수는 아닙니다.
@@ -65,6 +67,16 @@ func sendHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil { // str를 int로 바꾸는 중 에러 발생 시
 			log.Println("Error: NumWinners cannot be int") // 알림
 			w.WriteHeader(400)                             // http: 잘못된 요청
+			return
+		}
+	}
+
+	if remainWinners := r.FormValue("RemainWinners"); remainWinners != "" {
+		data.RemainWinners, err = strconv.Atoi(remainWinners)
+
+		if err != nil {
+			log.Println("Error: RemainWinners cannot be int")
+			w.WriteHeader(400)
 			return
 		}
 	}
@@ -137,6 +149,7 @@ func main() {
 
 	data.Numbers = []string{"24", "09", "08", "07"} // Default Value
 	data.NumWinners = 25                            // Default Value
+	data.RemainWinners = 24
 
 	static := http.FileServer(http.Dir("static"))                 // Static 파일의 디렉터리: ./static
 	http.Handle("/static/", http.StripPrefix("/static/", static)) // /static의 요청들을 static 디렉터리 파일들로 보냄

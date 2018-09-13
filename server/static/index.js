@@ -56,7 +56,7 @@ function load_NumWinners() {
         dataType:"json",
 
         success: function(data) {
-            document.all.NumWinners.innerHTML =  "남은 당첨자 " + data.NumWinners + "명"
+            document.all.NumWinners.innerHTML =  "당첨자 " + data.RemainWinners + "/" + data.NumWinners + "명"
                 if (data.NumWinners == 0) {
                     clearInterval(loader)
                     window.location.href = "timer"
