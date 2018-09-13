@@ -5,8 +5,8 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
       color: white;
        font-family: "Noto Sans KR", "Helvetica Neue", Helvetica, Arial, sans-serif;
        /* 폰트를 지정합니다 */
-      background-image: url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c10.jpg); //배경이미지를 지정합니다.
-      /* 배경 이미지를 지정합니다. */
+      background-image: url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c10.jpg); /*배경이미지를 지정합니다.
+      배경 이미지를 지정합니다. */
       margin:auto;
   }
 
@@ -74,7 +74,7 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
       opacity: 1;
     }
     100% {
-      right: 1000px
+      right: 1000px;
       font-size: 5.5rem;
       opacity: 0;
       right: 2000px;

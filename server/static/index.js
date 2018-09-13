@@ -57,7 +57,7 @@ function load_NumWinners() {
 
         success: function(data) {
             document.all.NumWinners.innerHTML =  "당첨자 " + data.RemainWinners + "/" + data.NumWinners + "명"
-                if (data.NumWinners == 0) {
+                if (data.RemainWinners == 0) {
                     clearInterval(loader)
                     window.location.href = "timer"
                 }
