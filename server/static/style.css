@@ -7,12 +7,12 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
        /* 폰트를 지정합니다 */
       background-image: url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c10.jpg); //배경이미지를 지정합니다.
       /* 배경 이미지를 지정합니다. */
-      margin-top:0px;
+      margin:auto;
   }
 
   @keyframes changesize {
     from {
-      font-size: 10rem;
+      font-size: 9rem;
     }
     to {
       font-size: 14rem;
@@ -105,6 +105,8 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     margin-left: 75px;
     margin-right: 75px;
     margin-bottom: 40px;
+    position: absolute;
+    top: 230px;
     /* animation-name: rotation;
     animation-duration: 1s;
     animation-iteration-count: infinite;
@@ -163,9 +165,9 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     margin: 100px;
     font-size: 7rem;
     position: absolute;
-    top: 550px;
-    bottom: 50px;
-    left: 380px;
+    top: 700px;
+    bottom: auto;
+    left: 430px;
   }
   #U {
     margin: 100px;
@@ -181,11 +183,16 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
   #ViewTimer {
     margin: 100px;
-    font-size: 10rem;
+    font-size: 9rem;
     animation-name: Announcement, changesize;
     animation-duration: 1s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+    position: absolute;
+    right: 250px;
+    left: 250px;
+    top: 260px;
+
   }
 
 
@@ -196,6 +203,6 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
   #NumWinners {
     position: absolute;
-    bottom: 70px;
+    bottom: 30px;
     left: 550px;
   }
