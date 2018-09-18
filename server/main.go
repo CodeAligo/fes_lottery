@@ -159,6 +159,9 @@ func main() {
 	http.HandleFunc("/send", sendHandler)                         // /send -> sendHander
 	http.HandleFunc("/", redirectHandler)                         // 편의상 / -> /timer
 
-	http.ListenAndServe(port, nil) // localhost:Port로 서버 실행
+	err = http.ListenAndServe(port, nil) // localhost:Port로 서버 실행
+	if err != nil {
+		panic(err)
+	}
 
 }
