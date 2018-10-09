@@ -177,8 +177,14 @@ url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
     margin-bottom: auto;
   }
 
+  .lottery_title {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+    font-size: 10rem;
+  }
+
   h1 {
-    font-size: 7rem;
+	  font-size: 7rem;
   }
 
   #ViewTimer {
