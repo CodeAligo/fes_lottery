@@ -9,7 +9,7 @@
     <script type="text/javascript">var loader = setInterval(load_NumWinners, 5000)</script>
   </head>
   <body id = "U">
-        <h1>당첨 번호는</h1>
+        <h1 id = "O">당첨 번호는</h1>
         <p class = "effect" id = "i">{{index .Numbers 0}}</p>
         <p class = "effect" id = "b">{{index .Numbers 1}}</p>
         <p class = "effect" id = "c">{{index .Numbers 2}}</p>
@@ -18,7 +18,7 @@
         <p class = "effect1">{{index .Numbers 1}}</p>
         <p class = "effect1">{{index .Numbers 2}}</p>
         <p class = "effect1">{{index .Numbers 3}}</p>
-        <h1 id="NumWinners">남은 당첨자 {{ .NumWinners }}명</h1>
+        <h1 id="NumWinners"></h1>
 
   </body>
 </html>
