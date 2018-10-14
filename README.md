@@ -92,10 +92,7 @@ curl http://localhost:8080/send?number1=24&number2=09&number3=08&number4=03&Next
 
 #### /ajax
 
-`/result` 페이지를 위한 ajax용 페이지입니다. json 형식이 아닌 정수 형태만 보여줍니다.
-
-보여주는 값은 `NumWinners`(남은 수령자)입니다.
-
+`/result` 페이지를 위한 ajax용 페이지입니다. json 형태입니다.
 
 ### Client
 
