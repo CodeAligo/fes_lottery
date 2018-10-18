@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#include <windows.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -50,7 +50,7 @@ int main()
 			printf("Lottery");
 			break;
 		}
-		Sleep(1000);
+		usleep(1000);
 	}
 	
 	return 0;
@@ -99,12 +99,12 @@ int print(int type)
 			printf("    ");
 			for(i=1; i<=4; i++)
 			{ 
-				Sleep(150);
+				usleep(150000);
 				printf("бр");
 			}
-			Sleep(500);
+			usleep(500000);
 			printf("бс");
-			Sleep(500);
+			usleep(500000);
 			break;
 		default:
 			break;
