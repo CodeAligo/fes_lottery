@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#include <unistd.h>
+#include <windows.h>
 
 using namespace std;
 
 struct data{
-	int check, pw[25], lot[6][5];
+	int check, pw[25], lot[6][5], pw_l=0;
 };
 
 int stu_num; 
@@ -35,7 +35,7 @@ int main()
 	{
 		check_student();
 		
-		if(stu[stu_num].check == 0) add_pw();
+		if(stu[stu_num].pw_l == 0) add_pw();
 		
 		print(1);
 		mode = input_one();
@@ -50,7 +50,7 @@ int main()
 			printf("Lottery");
 			break;
 		}
-		usleep(1000);
+		Sleep(1000);
 	}
 	
 	return 0;
@@ -80,31 +80,39 @@ int print(int type)
 		case 1:		//모드 입력 
 			printf("모드\n    a. 로또 입력\n    b. 패스워드 변경\n\n>> ");
 			break;
-		case 2:		//신규, 학년 입력 
+		case 2:		// 로그인, 학년 입력 
 			printf("<로그인>\n\n학년 >> ");
 			break;
-		case 3:		// 신규, 반 입력 
+		case 3:		// 로그인, 반 입력 
 			printf("<로그인>\n\n반 >> ");
 			break;
-		case 4:		// 신규, 번호 입력 
+		case 4:		// 로그인, 번호 입력 
 			printf("<로그인>\n\n번호 >> ");
 			break;
-		case 5:		// 신규, 최종 확인
+		case 5:		// 로그인, 최종 확인
 			printf("<로그인>\n\n    학년 : %d\n      반 : %d\n    번호 : %d\n\n확인(\'Y\'es/\'N\'o).. ", stu_num/1000, (stu_num%1000)/100, stu_num%100);
 			break;
 		case 6:		// 신규, 패스워드 설정 
 			printf("<패스워드>\n\n패스워드 설정\n8자리 이상의 숫자 또는 영문자로 구성된 패스워드 입력\n>> ");
 			break;
+		case 7:		// 로그인,  패스워드 입력 
+			printf("<로그인>\n\n\ 패스워드 : ");
+			break;
+		case 8:
+			printf("<!!> 비밀번호 설정이 필요합니다");
+			Sleep(1000);
+			print(10);
+			break;
 		case 10:	// 조건 성립 확인용 
 			printf("    ");
 			for(i=1; i<=4; i++)
 			{ 
-				usleep(150000);
+				Sleep(150);
 				printf("□");
 			}
-			usleep(500000);
+			Sleep(500);
 			printf("■");
-			usleep(500000);
+			Sleep(500);
 			break;
 		default:
 			break;
@@ -176,5 +184,10 @@ int add_num()
 
 int add_pw()
 {
-	
+	int i, a=0;
+	while(a!=13)
+	{
+		if(a == 8) pw_l--;
+		if(pw_l <= 0) pw_l = 0;
+	}
 }
