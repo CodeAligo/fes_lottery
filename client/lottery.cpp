@@ -6,7 +6,7 @@
 using namespace std;
 
 struct data{
-	int check, pw[25], lot[6][5];
+	int check, pw[25], lot[6][5], pw_l=0;
 };
 
 int stu_num; 
@@ -17,7 +17,6 @@ int file_input();
 int print(int type);
 int input_one();
 int input_num(int type);
-int input_pw(int type);
 int check_student();
 int add_num();
 int add_pw();
@@ -35,24 +34,23 @@ int main()
 	while(1)
 	{
 		check_student();
-		while(1)
-		{
-			if(stu[stu_num].check == 0) add_pw();
-			print(1);
-			mode = input_one();
-			if(mode == 0) print(1);
-			else if(mode == 65 || mode == 97) {
-				print(10);
-				add_num();
-				break;
-			}
-			else if(mode == 66 || mode == 98) {
-				print(10);
-				printf("Lottery");
-				break;
-			}
-			Sleep(1000);
+		
+		if(stu[stu_num].pw_l == 0) add_pw();
+		
+		print(1);
+		mode = input_one();
+		if(mode == 0) print(1);
+		else if(mode == 65 || mode == 97) {
+			print(10);
+			add_num();
+			break;
 		}
+		else if(mode == 66 || mode == 98) {
+			print(10);
+			printf("Lottery");
+			break;
+		}
+		Sleep(1000);
 	}
 	
 	return 0;
@@ -94,11 +92,16 @@ int print(int type)
 		case 5:		// 로그인, 최종 확인
 			printf("<로그인>\n\n    학년 : %d\n      반 : %d\n    번호 : %d\n\n확인(\'Y\'es/\'N\'o).. ", stu_num/1000, (stu_num%1000)/100, stu_num%100);
 			break;
-		case 6:		// 로그인, 패스워드 입력 
-			printf("<로그인>\n\n패스워드 >> ");
+		case 6:		// 신규, 패스워드 설정 
+			printf("<패스워드>\n\n패스워드 설정\n8자리 이상의 숫자 또는 영문자로 구성된 패스워드 입력\n>> ");
 			break;
-		case 7: 	// 등록, 패스워드 설정 
-			printf("<패스워드 설정>\n\n조건\n * 5자 이상, 20자 미만\n * 숫자와 영어 대소문자로 구성 (특수문자 불가)\n\n>> ");
+		case 7:		// 로그인,  패스워드 입력 
+			printf("<로그인>\n\n\ 패스워드 : ");
+			break;
+		case 8:
+			printf("<!!> 비밀번호 설정이 필요합니다");
+			Sleep(1000);
+			print(10);
 			break;
 		case 10:	// 조건 성립 확인용 
 			printf("    ");
@@ -141,15 +144,6 @@ int input_num(int type)
 	}
 }
 
-int input_pw(int type)
-{
-	int a;
-	while(1)
-	{
-		a = getch();
-	}
-}
-
 int check_student()
 {
 	int gra, cla, num, check, f;
@@ -185,15 +179,15 @@ int check_student()
 
 int add_num()
 {
-	if(a == 8) k = k/10;
-	else if(a == 13) return k;
+	
 }
 
 int add_pw()
 {
-	int a;
-	print(7);
-	input_pw(7);
-	a=getch();
-	
+	int i, a=0;
+	while(a!=13)
+	{
+		if(a == 8) pw_l--;
+		if(pw_l <= 0) pw_l = 0;
+	}
 }
