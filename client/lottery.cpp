@@ -29,13 +29,17 @@ int main()
 	
 	file_input();
 	
-	int mode;
+	int mode, i;
 	
 	while(1)
 	{
 		check_student();
 		
 		if(stu[stu_num].pw_l == 0) add_pw();
+		
+		printf("\n");
+		for(i=1; i<=stu[stu_num].pw_l; i++) printf("%c", stu[stu_num].pw[i]);
+		getch();
 		
 		print(1);
 		mode = input_one();
@@ -93,10 +97,12 @@ int print(int type)
 			printf("<로그인>\n\n    학년 : %d\n      반 : %d\n    번호 : %d\n\n확인(\'Y\'es/\'N\'o).. ", stu_num/1000, (stu_num%1000)/100, stu_num%100);
 			break;
 		case 6:		// 신규, 패스워드 설정 
-			printf("<패스워드>\n\n패스워드 설정\n8자리 이상의 숫자 또는 영문자로 구성된 패스워드 입력\n>> ");
+			printf("<패스워드>\n\n패스워드 설정\n4자리 이상의 숫자 또는 영문자로 구성된 패스워드 입력\n>> ");
+			for(i=1; i<=stu[stu_num].pw_l; i++) printf("* ");		
 			break;
 		case 7:		// 로그인,  패스워드 입력 
 			printf("<로그인>\n\n\ 패스워드 : ");
+			for(i=1; i<=stu[stu_num].pw_l; i++) printf("* ");
 			break;
 		case 8:
 			printf("<!!> 비밀번호 설정이 필요합니다");
@@ -185,9 +191,26 @@ int add_num()
 int add_pw()
 {
 	int i, a=0;
-	while(a!=13)
+	while(1)
 	{
-		if(a == 8) pw_l--;
-		if(pw_l <= 0) pw_l = 0;
+		a=getch();
+		if(a == 13) break;
+		if(a == 8) stu[stu_num].pw_l--;
+		else {
+			stu[stu_num].pw_l++;
+			stu[stu_num].pw[stu[stu_num].pw_l] = a;
+		}
+		if(stu[stu_num].pw_l <= 0) stu[stu_num].pw_l = 0; 
+		print(6);
 	}
+	
+	for(i=3; i>=1; i--)
+	{
+		print(6);
+		printf("\n\n확인되었습니다. %d초 후 로그인 창으로 넘어갑니다.", i);
+		Sleep(1000);
+	}
+	
+	
+	print(10);
 }
