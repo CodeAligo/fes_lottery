@@ -35,7 +35,10 @@ int main()
 	{
 		check_student();
 		
-		if(stu[stu_num].pw_l == 0) add_pw();
+		if(stu[stu_num].pw_l == 0) {
+			add_pw();
+			check_student();
+		}
 		
 		printf("\n");
 		for(i=1; i<=stu[stu_num].pw_l; i++) printf("%c", stu[stu_num].pw[i]);
