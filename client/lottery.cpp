@@ -9,7 +9,7 @@ struct data{
 	int check, pw[25], lot[6][5], pw_l=0;
 };
 
-int stu_num; 
+int stu_num, checkpw[25]={0, }, checkpw_s=0;
 char staff[30];
 data stu[4001];
 
@@ -20,6 +20,7 @@ int input_num(int type);
 int check_student();
 int add_num();
 int add_pw();
+int check_pw();
 
 int main()
 {
@@ -39,6 +40,8 @@ int main()
 			add_pw();
 			check_student();
 		}
+		
+		check_pw(); 
 		
 		printf("\n");
 		for(i=1; i<=stu[stu_num].pw_l; i++) printf("%c", stu[stu_num].pw[i]);
@@ -104,8 +107,8 @@ int print(int type)
 			for(i=1; i<=stu[stu_num].pw_l; i++) printf("* ");		
 			break;
 		case 7:		// 로그인,  패스워드 입력 
-			printf("<로그인>\n\n\ 패스워드 : ");
-			for(i=1; i<=stu[stu_num].pw_l; i++) printf("* ");
+			printf("<로그인>\n\n\ 패스워드 >> ");
+			for(i=1; i<=checkpw_s; i++) printf("* ");
 			break;
 		case 8:
 			printf("<!!> 비밀번호 설정이 필요합니다");
@@ -182,8 +185,6 @@ int check_student()
 			break;
 		}
 	}
-	
-	print(6);
 }
 
 int add_num()
@@ -194,6 +195,7 @@ int add_num()
 int add_pw()
 {
 	int i, a=0;
+	print(6);
 	while(1)
 	{
 		a=getch();
@@ -210,10 +212,30 @@ int add_pw()
 	for(i=3; i>=1; i--)
 	{
 		print(6);
-		printf("\n\n확인되었습니다. %d초 후 로그인 창으로 넘어갑니다.", i);
+		printf("\n\n저장되었습니다. %d초 후 로그인 창으로 넘어갑니다.", i);
 		Sleep(1000);
 	}
 	
 	
 	print(10);
+}
+
+int check_pw()
+{
+	int a;
+	
+	print(7);
+	while(1)
+	{
+		a = getch();
+		if(a == 13) break;
+		if(a == 8) checkpw_s--;
+		else {
+			checkpw_s++;
+			checkpw[checkpw_s] = a;
+		}
+		if(checkpw_s < 0) checkpw_s=0;
+		print(7);
+	}
+	return 0;
 }
