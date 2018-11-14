@@ -45,6 +45,8 @@ int main()
 		
 		printf("\n");
 		for(i=1; i<=stu[stu_num].pw_l; i++) printf("%c", stu[stu_num].pw[i]);
+		printf("\n");
+		for(i=1; i<=checkpw_s; i++) printf("%c", checkpw[i]);
 		getch();
 		
 		print(1);
@@ -223,7 +225,7 @@ int add_pw()
 int check_pw()
 {
 	int a;
-	
+	checkpw_s = 0;
 	print(7);
 	while(1)
 	{
@@ -237,5 +239,6 @@ int check_pw()
 		if(checkpw_s < 0) checkpw_s=0;
 		print(7);
 	}
+	
 	return 0;
 }
