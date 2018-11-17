@@ -30,18 +30,27 @@ int main()
 	
 	file_input();
 	
-	int mode, i;
+	int mode, i, log_con;
 	
 	while(1)
 	{
-		check_student();
-		
-		if(stu[stu_num].pw_l == 0) {
-			add_pw();
+		log_con=0;
+		while(1)
+		{
 			check_student();
+			if(stu[stu_num].pw_l == 0) add_pw();
+			else break;
 		}
 		
-		check_pw(); 
+		while(1)
+		{
+			if(check_pw()) {
+				log_con = 1;
+				break;
+			}
+			else print(9);
+			Sleep(1500);
+		}
 		
 		printf("\n");
 		for(i=1; i<=stu[stu_num].pw_l; i++) printf("%c", stu[stu_num].pw[i]);
@@ -117,6 +126,9 @@ int print(int type)
 			Sleep(1000);
 			print(10);
 			break;
+		case 9:
+			print(7);
+			printf("\n\n<!!> 틀렸습니다.\a");
 		case 10:	// 조건 성립 확인용 
 			printf("    ");
 			for(i=1; i<=4; i++)
@@ -151,7 +163,7 @@ int input_num(int type)
 	{
 		a = getch();
 		if(a == 8) k = k/10;
-		else if(a == 13) return k;
+		else if(a == 13 && k!=0) return k;
 		else if(48 <= a && a <= 57) k = k*10 + (a-48);
 		print(type);
 		k == 0 ? printf(" ") : printf("%d", k);
@@ -224,7 +236,7 @@ int add_pw()
 
 int check_pw()
 {
-	int a;
+	int a, i;
 	checkpw_s = 0;
 	print(7);
 	while(1)
@@ -240,5 +252,10 @@ int check_pw()
 		print(7);
 	}
 	
-	return 0;
+	for(i=1; i<=checkpw_s; i++)
+	{
+		if(checkpw[i] != stu[stu_num].pw[i]) return 0;	// 패스워드 불일치 
+	}
+	
+	return 1;			// 패스워드 일치 
 }
