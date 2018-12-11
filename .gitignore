@@ -18,3 +18,6 @@ server/server
 
 # Default Server log file
 server/access.log
+
+# DB
+go-client/theworldisallone.db
