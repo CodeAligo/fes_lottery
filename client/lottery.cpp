@@ -1,3 +1,6 @@
+/*
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
@@ -6,7 +9,7 @@
 using namespace std;
 
 struct data{
-	int check, pw[25], lot[6][5], pw_l=0;
+	int check, pw[25], lot[6][5];	//	pw[0] : password length
 };
 
 int stu_num, checkpw[25]={0, }, checkpw_s=0;
@@ -14,6 +17,7 @@ char staff[30];
 data stu[4001];
 
 int file_input();
+int file_output();
 int print(int type);
 int input_one();
 int input_num(int type);
@@ -38,39 +42,50 @@ int main()
 		while(1)
 		{
 			check_student();
-			if(stu[stu_num].pw_l == 0) add_pw();
+			if(stu[stu_num].pw[0] == 0) add_pw();
 			else break;
 		}
 		
-		while(1)
+		for(i=1; i<=3; i++)
 		{
 			if(check_pw()) {
 				log_con = 1;
+				print(12);
 				break;
 			}
 			else print(9);
 			Sleep(1500);
 		}
 		
+		if(log_con == 0) {
+			print(11);
+			continue; 
+		}
+		
 		printf("\n");
-		for(i=1; i<=stu[stu_num].pw_l; i++) printf("%c", stu[stu_num].pw[i]);
+		for(i=1; i<=stu[stu_num].pw[0]; i++) printf("%c", stu[stu_num].pw[i]);
 		printf("\n");
 		for(i=1; i<=checkpw_s; i++) printf("%c", checkpw[i]);
 		getch();
 		
+		file_output();
+		
 		print(1);
 		mode = input_one();
-		if(mode == 0) print(1);
-		else if(mode == 65 || mode == 97) {
+		if(mode == 65 || mode == 97) {
 			print(10);
-			add_num();
+			printf("Lottery");
+			//add_num();
 			break;
 		}
 		else if(mode == 66 || mode == 98) {
 			print(10);
-			printf("Lottery");
+			printf("PW");
 			break;
 		}
+		else print(1);
+		
+		file_output();
 		Sleep(1000);
 	}
 	
@@ -79,14 +94,28 @@ int main()
 
 int file_input()
 {
+	FILE *fi = fopen("student.txt", "r");
 	int i, j;
-	freopen("student.txt", "r", stdin);
 	for(i=1; i<=4000; i++)
 	{
-		scanf("%d %d", &stu[i].check, &stu[i].pw[0]);
-		for(j=1; j<=stu[i].pw[0]; j++) scanf("%d", &stu[i].pw[j]);
+		fscanf(fi, "%d %d", &stu[i].check, &stu[i].pw[0]);
+		for(j=1; j<=stu[i].pw[0]; j++) fscanf(fi, "%d", &stu[i].pw[j]);
+		for(j=1; j<=stu[i].check; j++) fscanf(fi, "%d %d %d %d", &stu[i].lot[1], &stu[i].lot[2], &stu[i].lot[3], &stu[i].lot[4]);
 	}
-	fclose(stdin);
+	fclose(fi);
+}
+
+int file_output()
+{
+	FILE *fo = fopen("student.txt", "r+");
+	int i, j;
+	for(i=1; i<=4000; i++)
+	{
+		fprintf(fo, "%d ", stu[i].check);
+		for(j=0; j<=stu[i].pw[0]; j++) fprintf(fo, "%d ", stu[i].pw[j]);
+		for(j=1; j<=stu[i].check; j++) fprintf(fo, "%d %d %d %d ", stu[i].lot[1], stu[i].lot[2], stu[i].lot[3], stu[i].lot[4]);
+	}
+	fclose(fo);
 }
 
 int print(int type)
@@ -115,7 +144,7 @@ int print(int type)
 			break;
 		case 6:		// 신규, 패스워드 설정 
 			printf("<패스워드>\n\n패스워드 설정\n4자리 이상의 숫자 또는 영문자로 구성된 패스워드 입력\n>> ");
-			for(i=1; i<=stu[stu_num].pw_l; i++) printf("* ");		
+			for(i=1; i<=stu[stu_num].pw[0]; i++) printf("* ");		
 			break;
 		case 7:		// 로그인,  패스워드 입력 
 			printf("<로그인>\n\n\ 패스워드 >> ");
@@ -128,7 +157,10 @@ int print(int type)
 			break;
 		case 9:
 			print(7);
-			printf("\n\n<!!> 틀렸습니다.\a");
+			printf("\n\n<!!> 틀렸습니다.\a\n");
+			Sleep(2000);
+			print(10);
+			break;
 		case 10:	// 조건 성립 확인용 
 			printf("    ");
 			for(i=1; i<=4; i++)
@@ -139,6 +171,17 @@ int print(int type)
 			Sleep(500);
 			printf("■");
 			Sleep(500);
+			break;
+		case 11:
+			print(7);
+			printf("\n\n<!!> 3회 틀렸습니다. 잠시 후 로그인 화면으로 돌아갑니다.\a\n");
+			Sleep(2500);
+			break;
+		case 12:
+			print(7);
+			printf("\n\n로그인 확인.\n");
+			Sleep(1000);
+			print(10);
 			break;
 		default:
 			break;
@@ -203,7 +246,7 @@ int check_student()
 
 int add_num()
 {
-	
+	file_output();
 }
 
 int add_pw()
@@ -214,12 +257,12 @@ int add_pw()
 	{
 		a=getch();
 		if(a == 13) break;
-		if(a == 8) stu[stu_num].pw_l--;
+		if(a == 8) stu[stu_num].pw[0]--;
 		else {
-			stu[stu_num].pw_l++;
-			stu[stu_num].pw[stu[stu_num].pw_l] = a;
+			stu[stu_num].pw[0]++;
+			stu[stu_num].pw[stu[stu_num].pw[0]] = a;
 		}
-		if(stu[stu_num].pw_l <= 0) stu[stu_num].pw_l = 0; 
+		if(stu[stu_num].pw[0] <= 0) stu[stu_num].pw[0] = 0; 
 		print(6);
 	}
 	
@@ -230,7 +273,7 @@ int add_pw()
 		Sleep(1000);
 	}
 	
-	
+	file_output();
 	print(10);
 }
 
