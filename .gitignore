@@ -21,3 +21,5 @@ server/access.log
 
 # DB
 go-client/theworldisallone.db
+
+go-client/go-client

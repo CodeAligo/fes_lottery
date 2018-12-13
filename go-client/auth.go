@@ -30,25 +30,24 @@ func RegisterAdmin() (admin Admin) {
 		fmt.Scanln(&admin.ID)
 		fmt.Print("Enter Your Name: ")
 		fmt.Scanln(&admin.Name)
-		fmt.Print("Enter Your Password: ")
-		bytePass, _ = terminal.ReadPassword(int(syscall.Stdin))
 		for {
-			fmt.Print("Type Again: ")
+			fmt.Print("\nEnter Your Password: ")
+			bytePass, _ = terminal.ReadPassword(int(syscall.Stdin))
+			fmt.Print("\nType Again: ")
 			retype, _ := terminal.ReadPassword(int(syscall.Stdin))
 			if string(bytePass) == string(retype) {
-				return
+				break
 			}
-			fmt.Print("Wrong. Type Again: ")
+			fmt.Print("\nWrong. Type Again: ")
 		}
 
-		answer := ""
-		fmt.Printf("ID: %s, Name: %s. Is it you? (y/n) ")
-		fmt.Scan(&answer)
-		if answer == "n" {
-			fmt.Println("OK! Let's Do it Again.")
+		if AskYesOrNo("\nID: %s, Name: %s. Is it you?", admin.ID, admin.Name) {
+			fmt.Println("Success.")
+			break
 		} else {
-			fmt.Println("Register Complete.")
+			fmt.Println("Let's try again.")
 		}
+
 	}
 
 	fmt.Println()
@@ -56,3 +55,32 @@ func RegisterAdmin() (admin Admin) {
 	admin.Password = string(bytePass)
 	return
 }
+
+func Login(ID, password string) (ok bool) {
+	var admin Admin
+	admin.ID = ID
+	db.Find(&admin)
+	if admin.Password == Encrypt(password) {
+		currentAdmin = admin
+		ok = true
+	}
+	return
+}
+
+func LoginConsole() {
+	var ID string
+	fmt.Println("\n-Logging in-")
+	fmt.Print("ID: ")
+	fmt.Scanln(&ID)
+	fmt.Print("Password: ")
+	bytePass, _ := terminal.ReadPassword(int(syscall.Stdin))
+
+	ok := Login(ID, string(bytePass))
+	if ok {
+		fmt.Printf("\nLogin Success. Welcome %s.\n", currentAdmin.Name)
+	} else {
+		fmt.Println("\nLogin Failed.")
+	}
+}
+
+// 伊織ちゃん　このみさん　桃子先輩　響ちゃん　春香がか
