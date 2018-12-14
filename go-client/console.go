@@ -52,9 +52,9 @@ func Interpreter() {
 		case "set":
 			SetNumbers()
 		case "server":
-			SetServer()
+			SetServerConsole()
 		case "sendnum":
-			SendTruthNumbers()
+			SendNumber()
 
 		case "newsess":
 			NewSession()

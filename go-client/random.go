@@ -10,18 +10,38 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 )
 
-func Winners() (lotteries []Lottery) {
-	db.Where("number1 = ? AND number2 = ? AND number3 = ? AND number4 = ?", TruthNumbers[0], TruthNumbers[1], TruthNumbers[2], TruthNumbers[3]).Find(&lotteries)
+func GetRemainWinners() int {
+	format := "active = true AND winned = false AND number1 = ? AND number2 = ? AND number3 = ? AND number4 = ?"
+	var lotteries []Lottery
+	db.Where(format, TruthNumbers[0], TruthNumbers[1], TruthNumbers[2], TruthNumbers[3]).Find(&lotteries)
+	return len(lotteries)
+}
+
+func GetWinners() (lotteries []Lottery) {
+	format := "active = true AND number1 = ? AND number2 = ? AND number3 = ? AND number4 = ?"
+	db.Where(format, TruthNumbers[0], TruthNumbers[1], TruthNumbers[2], TruthNumbers[3]).Find(&lotteries)
 	return
 }
 
 func PickNumbers() {
-	rand.Seed(time.Now().UnixNano())
-	numbersSlice := rand.Perm(Limit)[:4]
-	sort.Ints(numbersSlice)
-	for i, value := range numbersSlice {
-		TruthNumbers[i] = value + 1
+	for {
+		rand.Seed(time.Now().UnixNano())
+		numbersSlice := rand.Perm(Limit)[:4]
+		sort.Ints(numbersSlice)
+		for i, value := range numbersSlice {
+			TruthNumbers[i] = value + 1
+		}
+
+		winners := GetWinners()
+		if len(winners) == 0 {
+			continue
+		} else {
+			fmt.Println("Winners:", len(winners))
+			break
+		}
 	}
+
+	SendNumber()
 }
 
 func CheckOwner() {
@@ -42,6 +62,7 @@ func CheckOwner() {
 			fmt.Println("\nAuth Success.")
 			lotteries[0].Winned = true
 			db.Table("lotteries").Save(&lotteries[0])
+			SendRemainWinners()
 
 		} else {
 			fmt.Println("\nAuth Failed.")
@@ -55,6 +76,8 @@ func CheckOwner() {
 			lotteries[n].Winned = true
 			db.Save(&lotteries[n])
 		}
+
+		SendRemainWinners()
 
 	}
 }
