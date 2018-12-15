@@ -1,13 +1,6 @@
 # fes_lottery
 
-**fes_lottery** is a project for CodeAligo's School Festival.
-
-All of the developers of CodeAligo are Koreans, so comments are Korean.
-There will be no English.
-
-**Descriptions Are Korean. Sorry.**
-
-**fes_lottery**는 CodeAligo 동아리에서 학교 축제를 위해 진행하는 프로젝트로, 실재 재화가 아닌 축제에 사용하는 가상 화폐를 이용해 복권을 판매하고, 공개하는 프로그램이 들어있습니다.
+**fes_lottery**는 CodeAligo 동아리에서 학교 축제를 위해 진행하는 프로젝트로, 실재 재화가 아닌 축제에 사용하는 가상 화폐를 이용해 복권(로터리)을 판매하고, 공개하는 프로그램이 들어있습니다.
 
 
 ## 빌드 
