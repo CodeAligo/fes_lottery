@@ -96,5 +96,5 @@ curl http://localhost:8080/send?number1=24&number2=09&number3=08&number4=03&Next
 ## TODO
 
  - [ ] NextTime `null`에 대한 대처 코드 작성
- - `Msg`도 5초마다 불러올 수 있게 JavaScript 코드 수정
- - JavaScript 코드 싹 개편
+ - [ ] `Msg`도 5초마다 불러올 수 있게 JavaScript 코드 수정
+ - [ ] JavaScript 코드 싹 개편
