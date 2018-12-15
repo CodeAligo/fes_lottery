@@ -55,6 +55,8 @@ func Interpreter() {
 			SetServerConsole()
 		case "sendnum":
 			SendNumber()
+		case "sendmsg":
+			SendMessage()
 
 		case "newsess":
 			NewSession()
@@ -62,7 +64,7 @@ func Interpreter() {
 		case "exit":
 			return
 		case "help":
-			fmt.Println("register, logout, lottery, status, pick, win, server, sendnum, newsess, exit")
+			fmt.Println("register, logout, lottery, status, pick, win, server, sendnum, sendmsg, newsess, exit")
 		case "":
 			continue
 		default:

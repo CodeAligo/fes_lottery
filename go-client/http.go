@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -12,7 +13,7 @@ var (
 
 func init() {
 	domain := ""
-	fmt.Print("Server(blank for default): ")
+	fmt.Print("Server(blank for default): http://")
 	fmt.Scanln(&domain)
 	if domain != "" {
 		SetServer(domain)
@@ -21,7 +22,7 @@ func init() {
 
 	fmt.Print("NextTime(blank for an hour later): ")
 	nextTime := 0
-	fmt.Scan(&nextTime)
+	fmt.Scanln(&nextTime)
 	if nextTime == 0 {
 		nextTime = time.Now().Hour() + 1
 	}
@@ -96,7 +97,10 @@ func SendMessage() {
 	format := Api + "?Msg=%s"
 	message := ""
 	fmt.Print("Enter a message to send to a server: ")
-	fmt.Scanln(&message)
+	ScanLine(&message)
+
+	message = url.QueryEscape(message)
+
 	link := fmt.Sprintf(format, message)
 	resp, err := http.Get(link)
 	if err != nil {

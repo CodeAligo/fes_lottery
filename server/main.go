@@ -18,7 +18,7 @@ type Data struct {
 	NumWinners    int `json:"NumWinners"` // NumWinners 필드는 당첨자가 몇명인지를 저장합니다.
 	RemainWinners int `json:"RemainWinners"`
 
-	NextTime int    `json:"NextTime"` // NextTime 필드는 현재 시간부터 몇시까지 타이머를 구동할 건지를 저장합니다.
+	NextTime *int   `json:"NextTime"` // NextTime 필드는 현재 시간부터 몇시까지 타이머를 구동할 건지를 저장합니다.
 	Msg      string `json:"Msg"`      // Msg 필드는 안내 문구를 저장합니다. 필수는 아닙니다.
 }
 
@@ -46,62 +46,6 @@ func timerHandler(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, data)                                             // 응답
 }
 
-// sendHandler 함수는 /send로 들어온 인자를 저장합니다.
-func sendHandler(w http.ResponseWriter, r *http.Request) {
-	var err error // Error Handling을 위한 변수
-
-	if r.FormValue("number1") != "" { // "number1" 필드가 있을 시
-		numbers := []string{} // 인자를 저장하기 위한 슬라이스
-
-		for n := 1; n <= 4; n++ { // 1-4까지 반복
-			key := fmt.Sprintf("number%d", n)           // number + n
-			numbers = append(numbers, r.FormValue(key)) // key라는 이름의 필드 값을 불러와 numbers에 합침
-		}
-
-		copy(data.Numbers, numbers) // numbers의 값을 data.Numbers로 복사
-	}
-
-	if numWinners := r.FormValue("NumWinners"); numWinners != "" { // 만약 "NumWinners" 필드가 있을 시
-		data.NumWinners, err = strconv.Atoi(numWinners) // int로 변환
-
-		if err != nil { // str를 int로 바꾸는 중 에러 발생 시
-			log.Println("Error: NumWinners cannot be int") // 알림
-			w.WriteHeader(400)                             // http: 잘못된 요청
-			return
-		}
-	}
-
-	if remainWinners := r.FormValue("RemainWinners"); remainWinners != "" {
-		data.RemainWinners, err = strconv.Atoi(remainWinners)
-
-		if err != nil {
-			log.Println("Error: RemainWinners cannot be int")
-			w.WriteHeader(400)
-			return
-		}
-	}
-
-	if nextTime := r.FormValue("NextTime"); nextTime != "" { // "NextTime" 필드가 있을 시
-		data.NextTime, err = strconv.Atoi(nextTime) // str -> int
-
-		if err != nil { // int로 변환 시 에러 발생 시
-			log.Println("Error: NextTime cannot be int") // 알림
-			w.WriteHeader(400)                           // http: 잘못된 요청
-			return
-		}
-	}
-
-	if msg := r.FormValue("Msg"); msg != "" {
-		data.Msg = msg
-	}
-
-	logger(r) // 로그
-
-	w.WriteHeader(200) // http: OK
-	return
-
-}
-
 // ajaxHandler 함수는 JS의 ajax가 /ajax로 요청을 보내는 것을 처리합니다.
 func ajaxHandler(w http.ResponseWriter, r *http.Request) {
 	log.Print("ajax: NumWinners = ", data.NumWinners, " from ", r.RemoteAddr, "\n")
@@ -123,16 +67,29 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var (
-		logFile string
-		port    string
+		logFile        string
+		port           string
+		nextTimeString string
 	)
 
 	// 커맨드라인 인자들
 	flag.StringVar(&logFile, "log", "access.log", "A file for logging")
-	flag.IntVar(&data.NextTime, "nt", 10, "NextTime")
+	flag.StringVar(&nextTimeString, "nt", "", "NextTime")
 	flag.StringVar(&port, "port", "8080", "A port number for the Server")
 
 	flag.Parse() // 인자 파싱
+
+	if nextTimeString != "" {
+		nextTimeInt, err := strconv.Atoi(nextTimeString)
+
+		if err != nil {
+			fmt.Println("NextTime should be int.")
+			os.Exit(1)
+		}
+
+		data.NextTime = &nextTimeInt
+
+	}
 
 	port = ":" + port // ":" + port
 

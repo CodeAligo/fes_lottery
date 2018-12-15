@@ -15,13 +15,13 @@ There will be no English.
 **Server(Go)**
 
 ```shell
-$ cd server
-$ go build
+cd server
+go build
 ```
 
 **Client(C)**
 
-클라이언트 개발자가 `dev-cpp`로 개발&빌드하고 있습니다. `windows.h` 헤더 파일의 사용으로 클라이언트는 윈도우에서만 실행 가능합니다.
+[go-client/README.md 참고](go-client/README.md)
 
 ## 구성
 크게 `client/`와 `server/`로 구분됩니다.
@@ -97,4 +97,11 @@ curl http://localhost:8080/send?number1=24&number2=09&number3=08&number4=03&Next
 
 ### Client
 
-아직 프로그램이 완성되지 않아, 작성되지 않았습니다.
+[go-client/README.md 참고](go-client/README.md)
+
+
+## TODO
+
+ - [ ] NextTime `null`에 대한 대처 코드 작성
+ - `Msg`도 5초마다 불러올 수 있게 JavaScript 코드 수정
+ - JavaScript 코드 싹 개편

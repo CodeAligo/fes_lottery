@@ -24,22 +24,23 @@ func GetWinners() (lotteries []Lottery) {
 }
 
 func PickNumbers() {
-	for {
-		rand.Seed(time.Now().UnixNano())
-		numbersSlice := rand.Perm(Limit)[:4]
-		sort.Ints(numbersSlice)
-		for i, value := range numbersSlice {
-			TruthNumbers[i] = value + 1
-		}
+	var activeLotteries []Lottery
+	db.Where("active = true").Find(&activeLotteries)
 
-		winners := GetWinners()
-		if len(winners) == 0 {
-			continue
-		} else {
-			fmt.Println("Winners:", len(winners))
-			break
-		}
+	if len(activeLotteries) == 0 {
+		fmt.Println("There's no active lottery now.")
+		return
 	}
+
+	rand.Seed(time.Now().UnixNano())
+	numbersSlice := rand.Perm(Limit)[:4]
+	sort.Ints(numbersSlice)
+	for i, value := range numbersSlice {
+		TruthNumbers[i] = value + 1
+	}
+
+	winners := GetWinners()
+	fmt.Println("Winners:", len(winners))
 
 	SendNumber()
 }
