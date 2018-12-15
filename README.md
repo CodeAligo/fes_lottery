@@ -1,13 +1,6 @@
 # fes_lottery
 
-**fes_lottery** is a project for CodeAligo's School Festival.
-
-All of the developers of CodeAligo are Koreans, so comments are Korean.
-There will be no English.
-
-**Descriptions Are Korean. Sorry.**
-
-**fes_lottery**는 CodeAligo 동아리에서 학교 축제를 위해 진행하는 프로젝트로, 실재 재화가 아닌 축제에 사용하는 가상 화폐를 이용해 복권을 판매하고, 공개하는 프로그램이 들어있습니다.
+**fes_lottery**는 CodeAligo 동아리에서 학교 축제를 위해 진행하는 프로젝트로, 실재 재화가 아닌 축제에 사용하는 가상 화폐를 이용해 복권(로터리)을 판매하고, 공개하는 프로그램이 들어있습니다.
 
 
 ## 빌드 
@@ -103,5 +96,5 @@ curl http://localhost:8080/send?number1=24&number2=09&number3=08&number4=03&Next
 ## TODO
 
  - [ ] NextTime `null`에 대한 대처 코드 작성
- - `Msg`도 5초마다 불러올 수 있게 JavaScript 코드 수정
- - JavaScript 코드 싹 개편
+ - [ ] `Msg`도 5초마다 불러올 수 있게 JavaScript 코드 수정
+ - [ ] JavaScript 코드 싹 개편
