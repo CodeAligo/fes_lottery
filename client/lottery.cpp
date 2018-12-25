@@ -210,12 +210,12 @@ int print(int type)
 			break;
 		case 14: 	// 로또 입력 
 			printf("<로또>\n\n");
-			for(i=1; i<=add_n; i++) printf("  (%d) : %d\n", i, stu[stu_num].lot[stu[stu_num].lot[0][0]][i]);
+			for(i=1; i<=add_n; i++) printf("  (%d) : %d\n", i, stu[stu_num].lot[stu[stu_num].lot[0][0]+1][i]);
 			printf("  (%d) : ", add_n+1);
 			break;
 		case 16:	// 로또 에러 
 			printf("<로또>\n\n");
-			for(i=1; i<=add_n; i++) printf("  (%d) : %d\n", i, stu[stu_num].lot[stu[stu_num].lot[0][0]][i]);
+			for(i=1; i<=add_n; i++) printf("  (%d) : %d\n", i, stu[stu_num].lot[stu[stu_num].lot[0][0]+1][i]);
 			for(i=add_n+1; i<=4; i++) printf("  (%d) : \n", i);
 			printf("\n\n	<!!> 번호 형식이 잘못 되었습니다.\a\n");
 			break;
@@ -288,7 +288,7 @@ int check_student()
 
 int add_num()
 {
-	int a, i, j, f=1;
+	int a, i, j, f=1, t;
 	if(stu[stu_num].lot[0][0] == 5) {
 		for(i=3; i>=1; i--)
 		{
@@ -297,7 +297,6 @@ int add_num()
 			Sleep(1000);
 		}
 	}
-	stu[stu_num].lot[0][0]++;
 	print(14);
 	print(15);
 	while(1)
@@ -307,13 +306,37 @@ int add_num()
 			f=0;
 			break;
 		}
-		else if(0 > a || a > 30) print(16);
-		else stu[stu_num].lot[stu[stu_num].lot[0][0]][++add_n] = a;
+		else if(0 > a || a > 35) print(16);
+		else stu[stu_num].lot[stu[stu_num].lot[0][0]+1][++add_n] = a;
 		Sleep(500);
 		if(add_n == 4) break;
 	}
 	
-	if(1-f) stu[stu_num].lot[0][0]--;
+	for(i=1; i<=4; i++)
+	{
+		for(j=i; j<=4; j++)
+		{
+			if(stu[stu_num].lot[stu[stu_num].lot[0][0]+1][i] > stu[stu_num].lot[stu[stu_num].lot[0][0]+1][j]) { 
+				t = stu[stu_num].lot[stu[stu_num].lot[0][0]+1][i]; 
+				stu[stu_num].lot[stu[stu_num].lot[0][0]+1][i] = stu[stu_num].lot[stu[stu_num].lot[0][0]+1][j];
+				stu[stu_num].lot[stu[stu_num].lot[0][0]+1][j] = t;
+				
+			}
+		}
+	}
+	
+	for(i=1; i<=4; i++){
+		if(stu[stu_num].lot[stu[stu_num].lot[0][0]+1][i] == stu[stu_num].lot[stu[stu_num].lot[0][0]+1][i-1]) {
+			print(14);
+			print(15);
+			add_n = 0;
+			printf("\n\n	두개 이상의 숫자가 같으면 않됩니다!\n");
+			add_num();
+			return 0;
+		}
+	}
+	
+	if(f) stu[stu_num].lot[0][0]++;
 	file_output();
 	
 	for(i=5; i>=1; i--)
@@ -381,3 +404,4 @@ int check_pw()
 	
 	return f;			// f=1 : 패스워드 일치, f=0 : 패스워드 불일치  
 }
+
