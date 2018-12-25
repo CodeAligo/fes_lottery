@@ -88,5 +88,7 @@ int main()
 	printf("\n");
 	str_sort(student);
 	for(i=1; i<=total; i++) printf("%3d : %2d %2d %2d %2d  - %d %d\n", student[i].num, student[i].lot[1], student[i].lot[2], student[i].lot[3], student[i].lot[4], student[i].p1, student[i].p2);
+	getch();
+	getch();
 	return 0;
 }

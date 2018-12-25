@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
+#include <string.h>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ struct data{
 	int pw[25], lot[6][5];	//	pw[0] : password length
 };
 
-int stu_num, checkpw[25]={0, }, checkpw_s=0, add_n=0, total=0;
+int stu_num, checkpw[25]={0, }, checkpw_s=0, add_n=0, total=0, time;
 char staff[30];
 data stu[4001];
 
@@ -22,9 +23,14 @@ int check_student();
 int add_num();
 int add_pw();
 int check_pw();
+int add_cipher(int n);
 
 int main()
 {
+	printf("<input>\n");
+	printf("time.. ");
+	scanf("%d", &time); 
+	system("cls");
 	printf("<input>\n");
 	printf("staff.. ");
 	scanf("%s", staff);
@@ -222,7 +228,7 @@ int print(int type)
 			printf("\n\n	<!!> 번호 형식이 잘못 되었습니다.\a\n");
 			break;
 		case 17:	// 로또 최대 
-			printf("<로또>\n\n\n	<!!> 로또를 5개 구매하셨습니다.\n	최대 개수만큼 구매하여 더 이상 구매 하실 수 없습니다.\n\n");
+			printf("<로또>\n\n\n	<!!> 로또를 5개 구매하셨습니다.\n	  최대 개수만큼 구매하여 더 이상 구매 하실 수 없습니다.\n\n");
 			break;
 		default:
 			break;
@@ -290,7 +296,7 @@ int check_student()
 
 int add_num()
 {
-	int a, i, j, f=1, t;
+	int a, i, j, f=1, t, codea=0, codeb=0;
 	if(stu[stu_num].lot[0][0] == 5) {
 		for(i=3; i>=1; i--)
 		{
@@ -342,9 +348,24 @@ int add_num()
 		stu[stu_num].lot[0][0]++;
 		total++;
 		file_output();
+	
+		codea = (stu_num/1000)*100000 + ((stu_num/100)%10)*1000 + add_cipher(add_cipher(stu_num))*100 + stu_num%100 ;
+		printf("        code A : %d.%d\n        code B : ", codea, total);
+		for(i=1; i<=4; i++) 
+		{
+			if(stu[stu_num].lot[stu[stu_num].lot[0][0]][i] < 10) printf("0");
+			printf("%d", stu[stu_num].lot[stu[stu_num].lot[0][0]][i]);
+			codeb += (add_cipher(stu[stu_num].lot[stu[stu_num].lot[0][0]][i])*(9-i));
+		}
+		codeb += (time * 4);
+		codeb = (11-(((codeb/7)+(codeb%7))%11))%10;
+		printf("%d%d", time, codeb);
+		
+		printf("\n\n\n    아무 키를 누르십시오.");
+		getch();
 	}
 	
-	for(i=5; i>=1; i--)
+	for(i=3; i>=1; i--)
 	{
 		print(13);
 		printf("%d초 후 로그인 창으로 넘어갑니다.", i);
@@ -412,3 +433,14 @@ int check_pw()
 	return f;			// f=1 : 패스워드 일치, f=0 : 패스워드 불일치  
 }
 
+int add_cipher(int n)
+{
+	int a = 0;
+	while(1)
+	{
+		a+=(n%10);
+		n/=10;
+		if(n == 0) break;
+	}
+	return a;
+}
