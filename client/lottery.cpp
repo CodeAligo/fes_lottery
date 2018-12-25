@@ -9,7 +9,7 @@ struct data{
 	int pw[25], lot[6][5];	//	pw[0] : password length
 };
 
-int stu_num, checkpw[25]={0, }, checkpw_s=0, add_n=0;
+int stu_num, checkpw[25]={0, }, checkpw_s=0, add_n=0, total=0;
 char staff[30];
 data stu[4001];
 
@@ -96,6 +96,7 @@ int file_input()
 {
 	FILE *fi = fopen("student.txt", "r");
 	int i, j;
+	fscanf(fi, "%d", &total)
 	for(i=1; i<=4000; i++)
 	{
 		fscanf(fi, "%d %d", &stu[i].lot[0][0], &stu[i].pw[0]);
@@ -109,6 +110,7 @@ int file_output()
 {
 	FILE *fo = fopen("student.txt", "r+");
 	int i, j;
+	fprintf(fo, "%d\n", total);
 	for(i=1; i<=4000; i++)
 	{
 		fprintf(fo, "%d ", stu[i].lot[0][0]);
@@ -330,14 +332,17 @@ int add_num()
 			print(14);
 			print(15);
 			add_n = 0;
-			printf("\n\n	두개 이상의 숫자가 같으면 않됩니다!\n");
+			printf("\n\n	두 개 이상의 숫자가 같으면 안됩니다!\n");
 			add_num();
 			return 0;
 		}
 	}
 	
-	if(f) stu[stu_num].lot[0][0]++;
-	file_output();
+	if(f) {
+		stu[stu_num].lot[0][0]++;
+		total++;
+		file_output();
+	}
 	
 	for(i=5; i>=1; i--)
 	{

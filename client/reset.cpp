@@ -5,6 +5,7 @@
 int main()
 {
 	FILE *fp = fopen("student.txt", "w");
+	fprintf(fp, "0\n");
 	for(int i=1; i<=4000; i++) fprintf(fp, "0 0\n");
 	fclose(fp);
 	
