@@ -96,7 +96,7 @@ int file_input()
 {
 	FILE *fi = fopen("student.txt", "r");
 	int i, j;
-	fscanf(fi, "%d", &total)
+	fscanf(fi, "%d", &total);
 	for(i=1; i<=4000; i++)
 	{
 		fscanf(fi, "%d %d", &stu[i].lot[0][0], &stu[i].pw[0]);
@@ -108,7 +108,7 @@ int file_input()
 
 int file_output()
 {
-	FILE *fo = fopen("student.txt", "r+");
+	FILE *fo = fopen("student.txt", "w");
 	int i, j;
 	fprintf(fo, "%d\n", total);
 	for(i=1; i<=4000; i++)
@@ -329,10 +329,10 @@ int add_num()
 	
 	for(i=1; i<=4; i++){
 		if(stu[stu_num].lot[stu[stu_num].lot[0][0]+1][i] == stu[stu_num].lot[stu[stu_num].lot[0][0]+1][i-1]) {
-			print(14);
-			print(15);
+			
 			add_n = 0;
-			printf("\n\n	두 개 이상의 숫자가 같으면 안됩니다!\n");
+			printf("\n\n	두 개 이상의 숫자가 같으면 안됩니다!\a\n");
+			Sleep(1000);
 			add_num();
 			return 0;
 		}
@@ -350,6 +350,8 @@ int add_num()
 		printf("%d초 후 로그인 창으로 넘어갑니다.", i);
 		Sleep(1000);
 	}
+	
+	return 0;
 }
 
 int add_pw()
